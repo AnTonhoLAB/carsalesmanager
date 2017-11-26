@@ -66,6 +66,7 @@ create table sale(
     sale_date date,
     portion_number int,
     amount double,
+    settled boolean,
     
     id_owner int,
     
@@ -79,7 +80,8 @@ create table payment(
 	id_payment int not null auto_increment,
     payment_number int,
     payment_amount double,
-    
+    paid boolean,
+	
     id_sale int,
     
 	primary key(id_payment),
@@ -199,62 +201,6 @@ insert into car_type(name) values("Sedan");
 insert into car_type(name) values("SUV");
 insert into car_type(name) values("Ultilitário");
 
-select * from car;
-
-insert into car(plate, age, description, status_car, km, price, sale_state, id_car_type, id_model, id_color)
-values("IOP-3256",2015,"Corsinha Amarelo seminovo zerado" , true, 7390, 20000.00, false, 1, 1,1);
-
-insert into car(plate, age, description, status_car, km, price, sale_state, id_car_type, id_model, id_color)
-values("IPQ-9843",1979,"Chevettão interasso, reliquia, de colecionador", false, 590390, 7500.00, false, 2, 2,9);
-
-insert into car(plate, age, description, status_car, km, price, sale_state, id_car_type, id_model, id_color)
-values("IZO-8922",2017,"Um grande carro para viagens", true, 0, 70000.00, false, 3, 3,9);
-
-insert into car(plate, age, description, status_car, km, price, sale_state, id_car_type, id_model, id_color)
-values("IQQ-3411",2002,"Um Sedan elegante", true, 150000, 12000.00, false, 4, 4,2);
-
-insert into car(plate, age, description, status_car, km, price, sale_state, id_car_type, id_model, id_color)
-values("IZY-3317",2012,"Um carro para a familia toda", false, 180000, 22500.00, false, 6, 5,10);
-
-insert into car(plate, age, description, status_car, km, price, sale_state, id_car_type, id_model, id_color)
-values("ITT-7349",2010,"O melhor carro da categoria", false, 159049, 21950.00, false, 6, 6,8);
-
-insert into car(plate, age, description, status_car, km, price, sale_state, id_car_type, id_model, id_color)
-values("IZK-1567",2015,"Com air bag o melhor para o trabalho", false, 37049, 36950.00, false, 6, 7,12);
-
-insert into car(plate, age, description, status_car, km, price, sale_state, id_car_type, id_model, id_color)
-values("IPT-9023",2008,"Compacto por fora, gigante por dentro. ", false, 67221, 19900.00, false, 1, 8, 9);
-
-insert into car(plate, age, description, status_car, km, price, sale_state, id_car_type, id_model, id_color)
-values("IGG-1273",2014,"É lindo mas bebe demais, mas vale a pena", false, 87000, 52900.00, false, 4, 9,2);
-
-insert into car(plate, age, description, status_car, km, price, sale_state, id_car_type, id_model, id_color)
-values("IJB-1970",2001,"O carro é uma merda mas pelo preço ta valendo", false, 150000, 5000.00, false, 1, 10,7);
-
-insert into car(plate, age, description, status_car, km, price, sale_state, id_car_type, id_model, id_color)
-values("ILT-9023",2014,"O carro que você sempre quis", false, 84000, 35900.00, false, 1, 11,8);
-
-insert into car(plate, age, description, status_car, km, price, sale_state, id_car_type, id_model, id_color)
-values("IKP-0462",2016,"Camionetao pra desfila na Dorival", false, 15221, 85500.00, false, 5, 12,11);
-
-insert into car(plate, age, description, status_car, km, price, sale_state, id_car_type, id_model, id_color)
-values("IKL-7712",2006,"O carro perfeito pros racha na ipiranga", false, 29221, 96000.00, false, 2, 13,9);
-
-insert into car(plate, age, description, status_car, km, price, sale_state, id_car_type, id_model, id_color)
-values("IKD-7222",2015,"O carro perfeito pra velho que quer pegar as novinha", false, 61221, 70000.00, false, 2, 14,5);
-
-insert into car(plate, age, description, status_car, km, price, sale_state, id_car_type, id_model, id_color)
-values("ISC-5522",2017,"Pra passa por cima de todo mundo", true, 0, 180000.00, false, 5, 15,4);
-
-insert into car(plate, age, description, status_car, km, price, sale_state, id_car_type, id_model, id_color)
-values("LKS-8769",2011,"Pra da banda no parcao", false, 86000, 26900.00, false, 3, 16,7);
-
-insert into car(plate, age, description, status_car, km, price, sale_state, id_car_type, id_model, id_color)
-values("LUK-1769",1994,"Perfeito pra cara chato passa com som alto", false, 350000, 9300.00, false, 3, 17,9);
-
-insert into car(plate, age, description, status_car, km, price, sale_state, id_car_type, id_model, id_color)
-values("LGP-6666",2011,"Bebe que é um demonho mas é foda", false, 860000, 30000.00, false, 2, 18,5);
-
 insert into state(name) values("AC");
 insert into state(name) values("AL");
 insert into state(name) values("AP");
@@ -304,6 +250,76 @@ insert into contact(telephone, cell, email, id_owner) values("(51) 3490-1323", "
 insert into contact(telephone, cell, email, id_owner) values("(51) 3423-8430", "(51) 99234-7654", "amandita@gmail.com",3);
 insert into contact(telephone, cell, email, id_owner) values("(51) 8973-4304", "(51) 94566-2347", "jubileubs.com",4);
 
+
+insert into sale(sale_date, portion_number, amount, settled, id_owner) values('2017-07-07', 1, 70000, true,1);
+insert into sale(sale_date, portion_number, amount, settled, id_owner) values('2017-03-17', 1, 180000, true, 3);
+insert into sale(sale_date, portion_number, amount, settled, id_owner) values('2017-07-03', 1, 9300, true ,4);
+insert into sale(sale_date, portion_number, amount, settled, id_owner) values('2017-10-21', 1, 26900, false, 2);
+insert into sale(sale_date, portion_number, amount, settled, id_owner) values('2016-02-12', 2, 30000, true, 2);
+
+insert into payment(payment_number, payment_amount,paid, id_sale) values(1, 15000, true, 5);
+insert into payment(payment_number, payment_amount,paid, id_sale) values(1, 15000, false, 5);
+
+insert into car(plate, age, description, status_car, km, price, sale_state, id_car_type, id_model, id_color)
+values("IOP-3256",2015,"Corsinha Amarelo seminovo zerado" , true, 7390, 20000.00, false, 1, 1,1);
+
+insert into car(plate, age, description, status_car, km, price, sale_state, id_car_type, id_model, id_color)
+values("IPQ-9843",1979,"Chevettão interasso, reliquia, de colecionador", false, 590390, 7500.00, false, 2, 2,9);
+
+insert into car(plate, age, description, status_car, km, price, sale_state, id_car_type, id_model, id_color)
+values("IZO-8922",2017,"Um grande carro para viagens", true, 0, 70000.00, false, 3, 3,9);
+
+insert into car(plate, age, description, status_car, km, price, sale_state, id_car_type, id_model, id_color)
+values("IQQ-3411",2002,"Um Sedan elegante", true, 150000, 12000.00, false, 4, 4,2);
+
+insert into car(plate, age, description, status_car, km, price, sale_state, id_car_type, id_model, id_color)
+values("IZY-3317",2012,"Um carro para a familia toda", false, 180000, 22500.00, false, 6, 5,10);
+
+insert into car(plate, age, description, status_car, km, price, sale_state, id_car_type, id_model, id_color)
+values("ITT-7349",2010,"O melhor carro da categoria", false, 159049, 21950.00, false, 6, 6,8);
+
+insert into car(plate, age, description, status_car, km, price, sale_state, id_car_type, id_model, id_color)
+values("IZK-1567",2015,"Com air bag o melhor para o trabalho", false, 37049, 36950.00, false, 6, 7,12);
+
+insert into car(plate, age, description, status_car, km, price, sale_state, id_car_type, id_model, id_color)
+values("IPT-9023",2008,"Compacto por fora, gigante por dentro. ", false, 67221, 19900.00, false, 1, 8, 9);
+
+insert into car(plate, age, description, status_car, km, price, sale_state, id_car_type, id_model, id_color)
+values("IGG-1273",2014,"É lindo mas bebe demais, mas vale a pena", false, 87000, 52900.00, false, 4, 9,2);
+
+insert into car(plate, age, description, status_car, km, price, sale_state, id_car_type, id_model, id_color)
+values("IJB-1970",2001,"O carro é uma merda mas pelo preço ta valendo", false, 150000, 5000.00, false, 1, 10,7);
+
+insert into car(plate, age, description, status_car, km, price, sale_state, id_car_type, id_model, id_color)
+values("ILT-9023",2014,"O carro que você sempre quis", false, 84000, 35900.00, false, 1, 11,8);
+
+insert into car(plate, age, description, status_car, km, price, sale_state, id_car_type, id_model, id_color)
+values("IKP-0462",2016,"Camionetao pra desfila na Dorival", false, 15221, 85500.00, false, 5, 12,11);
+
+insert into car(plate, age, description, status_car, km, price, sale_state, id_car_type, id_model, id_color)
+values("IKL-7712",2006,"O carro perfeito pros racha na ipiranga", false, 29221, 96000.00, false, 2, 13,9);
+
+
+insert into car(plate, age, description, status_car, km, price, sale_state, id_car_type, id_model, id_color, id_sale)
+values("IKD-7222",2015,"O carro perfeito pra velho que quer pegar as novinha", false, 61221, 70000.00, false, 2, 14,5,1);
+
+insert into car(plate, age, description, status_car, km, price, sale_state, id_car_type, id_model, id_color, id_sale)
+values("ISC-5522",2017,"Pra passa por cima de todo mundo", true, 0, 180000.00, false, 5, 15,4,2);
+
+insert into car(plate, age, description, status_car, km, price, sale_state, id_car_type, id_model, id_color, id_sale)
+values("LUK-1769",1994,"Perfeito pra cara chato passa com som alto", false, 350000, 9300.00, false, 3, 17,9,3);
+
+insert into car(plate, age, description, status_car, km, price, sale_state, id_car_type, id_model, id_color, id_sale)
+values("LKS-8769",2011,"Pra da banda no parcao", false, 86000, 26900.00, false, 3, 16,7,4);
+
+insert into car(plate, age, description, status_car, km, price, sale_state, id_car_type, id_model, id_color, id_sale)
+values("LGP-6666",2011,"Bebe que é um demonho mas é foda", false, 860000, 30000.00, false, 2, 18,5, 5);
+
+
+
+
+
+
 select * from car;
 select * from car_type;
 
@@ -315,7 +331,7 @@ where a.name = "Honda";
 select * 
 from car as c
 join car_type as t on c.id_car_type = t.id_car_type
-where t.name = "Passeio" ;
+where t.name = "Esportivo" ;
 
 
 
