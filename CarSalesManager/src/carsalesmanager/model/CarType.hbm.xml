@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Nov 26, 2017 6:00:22 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="carsalesmanager.model.CarType" table="car_type" catalog="carSalesManager" optimistic-lock="version">
+        <id name="idCarType" type="java.lang.Integer">
+            <column name="id_car_type" />
+            <generator class="identity" />
+        </id>
+        <property name="name" type="string">
+            <column name="name" length="15" />
+        </property>
+        <set name="cars" table="car" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_car_type" />
+            </key>
+            <one-to-many class="carsalesmanager.model.Car" />
+        </set>
+    </class>
+</hibernate-mapping>

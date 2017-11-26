@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Nov 26, 2017 6:00:22 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="carsalesmanager.model.State" table="state" catalog="carSalesManager" optimistic-lock="version">
+        <id name="idState" type="java.lang.Integer">
+            <column name="id_state" />
+            <generator class="identity" />
+        </id>
+        <property name="name" type="string">
+            <column name="name" length="2" />
+        </property>
+        <set name="cities" table="city" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_state" />
+            </key>
+            <one-to-many class="carsalesmanager.model.City" />
+        </set>
+    </class>
+</hibernate-mapping>
