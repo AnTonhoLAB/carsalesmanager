@@ -5,17 +5,12 @@
  */
 package carsalesmanager.dao;
 
-import carsalesmanager.model.Owner;
 import java.io.Serializable;
 
 /**
  *
  * @author george
  */
-public class OwnerDAO extends HibernateDAO<Owner, Serializable>{
-    
-    public OwnerDAO(Owner entity) {
-        super(entity);
-    }
+public class StateDAO extends HibernateDAO<State, Serializable> {
     
 }

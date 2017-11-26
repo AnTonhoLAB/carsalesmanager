@@ -13,7 +13,7 @@ import java.io.Serializable;
  *
  * @author george
  */
-public class TypeDao extends HibernateDao<CarType, Serializable> {
+public class TypeDao extends HibernateDAO<CarType, Serializable> {
     
     public TypeDao(CarType entity) {
         super(entity);

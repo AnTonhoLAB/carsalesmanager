@@ -14,7 +14,7 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import carsalesmanager.util.HibernateUtil;
 
-public abstract class HibernateDao<T, ID extends Serializable> implements Serializable {
+public abstract class HibernateDAO<T, ID extends Serializable> implements Serializable {
 	
 	
 	private static final long serialVersionUID = 1L;
@@ -25,7 +25,7 @@ public abstract class HibernateDao<T, ID extends Serializable> implements Serial
 	
 	T entity;
 	
-	public HibernateDao(T entity){
+	public HibernateDAO(T entity){
             this.entity = entity;
 	}
 	

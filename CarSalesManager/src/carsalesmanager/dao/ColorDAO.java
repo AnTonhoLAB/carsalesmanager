@@ -5,17 +5,18 @@
  */
 package carsalesmanager.dao;
 
-import carsalesmanager.model.Owner;
+import carsalesmanager.model.Color;
 import java.io.Serializable;
 
 /**
  *
  * @author george
  */
-public class OwnerDAO extends HibernateDAO<Owner, Serializable>{
+public class ColorDAO extends HibernateDAO<Color, Serializable> {
     
-    public OwnerDAO(Owner entity) {
+    public ColorDAO(Color entity) {
         super(entity);
     }
     
 }
+

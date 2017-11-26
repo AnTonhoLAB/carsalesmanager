@@ -3,19 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package carsalesmanager.dao;
-
-import carsalesmanager.model.Car;
-import java.io.Serializable;
+package carsalesmanager.controller;
 
 /**
  *
  * @author george
  */
-public class CarDAO  extends HibernateDAO<Car, Serializable> {
-    
-    public CarDAO(Car entity) {
-        super(entity);
-    }
+public class ControllerManager {
     
 }
