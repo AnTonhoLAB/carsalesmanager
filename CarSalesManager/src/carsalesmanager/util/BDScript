@@ -1,1 +1,159 @@
+create database carSalesManager;
+use carSalesManager;
 
+create table state(
+	id_state int not null auto_increment,
+    nome varchar(2),
+    
+    primary key (id_state)
+);
+
+create table city(
+	id_city int not null auto_increment,
+    nome varchar(50),
+    
+    id_state int,
+    
+    primary key (id_city),
+    
+    constraint fk_state foreign key(id_state)
+    references state(id_state)on delete no action on update cascade
+);
+
+create table address(
+	id_address int not null auto_increment,
+    rua varchar(50),
+    numero int,
+    complemento varchar(15),
+    
+    id_city int,
+    
+    primary key (id_address),
+    
+    constraint fk_city foreign key (id_city)
+    references city(id_city) on delete no action on update cascade
+);
+
+create table owner(
+	id_owner int not null auto_increment,
+    cpf varchar(14),
+    name varchar(50),
+    
+    id_address int,
+    
+    primary key(id_owner),
+    
+    constraint fk_add foreign key(id_address)
+    references address(id_address) on delete cascade on update cascade
+);
+
+create table contact(
+	id_contact int not null auto_increment,
+    telephone varchar(14),
+    cell varchar(15),
+    email varchar (50),
+    
+    id_owner int,
+    
+    primary key(id_contact),
+    
+    constraint fk_owner foreign key(id_owner)
+    references owner(id_owner) on delete cascade on update cascade
+);
+
+create table sale(
+	id_sale int not null auto_increment,
+    sale_date date,
+    portion_number int,
+    amount double,
+    
+    id_owner int,
+    
+    primary key(id_sale),
+    
+    constraint fk_owner_sale foreign key(id_owner)
+    references owner (id_owner) on delete no action on update cascade
+);
+
+create table payment(
+	id_payment int not null auto_increment,
+    payment_number int,
+    payment_amount double,
+    
+    id_sale int,
+    
+	primary key(id_payment),
+    
+    constraint fk_sale_payment foreign key(id_sale)
+    references sale (id_sale) on delete cascade on update cascade
+);
+
+create table color(
+	id_color int not null auto_increment,
+    nome varchar(15),
+    
+    primary key (id_color)
+);
+
+create table manufacturer(
+	id_manufacturer int not null auto_increment,
+    nome varchar(20),
+	
+    primary key (id_manufacturer)
+);
+
+create table model(
+	id_model int not null auto_increment,
+    nome varchar(30),
+    id_manufacturer int,
+    primary key (id_model),
+    
+    constraint fk_manufacturer foreign key (id_manufacturer)
+    references manufacturer(id_manufacturer) on delete cascade on update cascade
+);
+
+create table model_color(
+	id_model int not null,
+    id_color int not null,
+    
+    primary key (id_model, id_color),
+    
+    constraint fk_model foreign key (id_model)
+    references model(id_model) on delete cascade on update cascade,
+	
+    constraint fk_color foreign key (id_color)
+    references color(id_color) on delete cascade on update cascade
+);
+
+create table car_type(
+	id_car_type int not null auto_increment,
+    nome varchar(15),
+    
+    primary key (id_car_type)
+);
+
+create table car(
+	id_car int not null auto_increment,
+    placa varchar(8),
+    ano int,
+    descricao varchar(500),
+    estado boolean,
+    km int,
+    preco double,
+    vendido boolean,
+    
+    id_car_type int,
+    id_model int,
+    id_sale int,
+    
+    primary key (id_car),
+
+	constraint fk_car_type foreign key(id_car_type)
+    references car_type(id_car_type) on delete no action on update cascade,
+    
+	constraint fk_model_car foreign key (id_model)
+    references model(id_model)on delete no action on update cascade,
+    
+    constraint fk_sale foreign key (id_sale)
+    references sale(id_sale) on delete no action on update cascade
+);
