@@ -22,9 +22,9 @@ create table city(
 
 create table address(
 	id_address int not null auto_increment,
-    rua varchar(50),
-    numero int,
-    complemento varchar(15),
+    street varchar(50),
+    house_number int,
+    complement varchar(15),
     
     id_city int,
     
@@ -255,13 +255,6 @@ values("LUK-1769",1994,"Perfeito pra cara chato passa com som alto", false, 3500
 insert into car(plate, age, description, status_car, km, price, sale_state, id_car_type, id_model, id_color)
 values("LGP-6666",2011,"Bebe que é um demonho mas é foda", false, 860000, 30000.00, false, 2, 18,5);
 
-
-
-
-
-
-
-
 insert into state(name) values("AC");
 insert into state(name) values("AL");
 insert into state(name) values("AP");
@@ -290,6 +283,26 @@ insert into state(name) values("SE");
 insert into state(name) values("SP");
 insert into state(name) values("TO");
 
+insert into city(name, id_state) values("Porto Alegre", 23);
+insert into city(name, id_state) values("Gravataí", 23);
+insert into city(name, id_state) values("Canoas", 23);
+insert into city(name, id_state) values("Criciuma", 24);
+
+insert into address(street, house_number, id_city) values("Guararapes", 3748, 1);
+insert into address(street, house_number, id_city) values("Vasco Alves", 395, 2);
+insert into address(street, house_number, id_city) values("Canavial", 87,3);
+insert into address(street, house_number, id_city) values("Chacra Velha", 180,4);
+
+insert into owner(cpf, name, id_address) values("890.893.123-10", "Marilia Mendonça", 1);
+insert into owner(cpf, name, id_address) values("395.638.893-49", "Giorgino Gomes", 2);
+insert into owner(cpf, name, id_address) values("386.297.530-83", "Amandita Vitoria", 3);
+insert into owner(cpf, name, id_address) values("093.938.400-97", "Jubileu Dorneles", 4);
+
+
+insert into contact(telephone, cell, email, id_owner) values("(51) 3478-8630", "(51) 99303-8931", "mariazinha@gmail.com",1);
+insert into contact(telephone, cell, email, id_owner) values("(51) 3490-1323", "(51) 99129-8123", "george@gmail.com",2);
+insert into contact(telephone, cell, email, id_owner) values("(51) 3423-8430", "(51) 99234-7654", "amandita@gmail.com",3);
+insert into contact(telephone, cell, email, id_owner) values("(51) 8973-4304", "(51) 94566-2347", "jubileubs.com",4);
 
 select * from car;
 select * from car_type;
