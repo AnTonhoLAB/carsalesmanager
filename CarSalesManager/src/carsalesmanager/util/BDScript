@@ -112,18 +112,6 @@ create table model(
     references manufacturer(id_manufacturer) on delete cascade on update cascade
 );
 
-create table model_color(
-	id_model int not null,
-    id_color int not null,
-    
-    primary key (id_model, id_color),
-    
-    constraint fk_model foreign key (id_model)
-    references model(id_model) on delete cascade on update cascade,
-	
-    constraint fk_color foreign key (id_color)
-    references color(id_color) on delete cascade on update cascade
-);
 
 create table car_type(
 	id_car_type int not null auto_increment,
@@ -134,17 +122,18 @@ create table car_type(
 
 create table car(
 	id_car int not null auto_increment,
-    placa varchar(8),
-    ano int,
-    descricao varchar(500),
-    estado boolean,
+    plate varchar(8),
+    age int,
+    description varchar(500),
+    status_car boolean,
     km int,
-    preco double,
-    vendido boolean,
+    price double,
+    sale_state boolean,
     
     id_car_type int,
     id_model int,
     id_sale int,
+    id_color int,
     
     primary key (id_car),
 
@@ -155,7 +144,10 @@ create table car(
     references model(id_model)on delete no action on update cascade,
     
     constraint fk_sale foreign key (id_sale)
-    references sale(id_sale) on delete no action on update cascade
+    references sale(id_sale) on delete no action on update cascade,
+    
+    constraint fk_color foreign key (id_color)
+    references color(id_color) on delete no action on update cascade
 );
 
 insert into color(name) values("Amarelo");
@@ -191,37 +183,126 @@ insert into model(name, id_manufacturer) values("Fiorino",2);
 insert into model(name, id_manufacturer) values("Fiesta",3);
 insert into model(name, id_manufacturer) values("Focus",3);
 insert into model(name, id_manufacturer) values("Ka",3);
-insert into model(name, id_manufacturer) values("Elantra",4);
 insert into model(name, id_manufacturer) values("HB20",4);
-insert into model(name, id_manufacturer) values("i30",4);
-insert into model(name, id_manufacturer) values("Civic",5);
-insert into model(name, id_manufacturer) values("Fit",5);
 insert into model(name, id_manufacturer) values("HR-V",5);
 insert into model(name, id_manufacturer) values("350-Z",6);
 insert into model(name, id_manufacturer) values("Corolla",7);
 insert into model(name, id_manufacturer) values("Hilux",7);
-insert into model(name, id_manufacturer) values("Supra",7);
 insert into model(name, id_manufacturer) values("Fox",8);
 insert into model(name, id_manufacturer) values("Gol",8);
-insert into model(name, id_manufacturer) values("Corsa",1);
-insert into model(name, id_manufacturer) values("Cruze",1);
 insert into model(name, id_manufacturer) values("Opala",1);
 
+insert into car_type(name) values("Compacto");
+insert into car_type(name) values("Esportivo");
+insert into car_type(name) values("Passeio");
+insert into car_type(name) values("Sedan");
+insert into car_type(name) values("SUV");
+insert into car_type(name) values("Ultilitário");
 
+select * from car;
+
+insert into car(plate, age, description, status_car, km, price, sale_state, id_car_type, id_model, id_color)
+values("IOP-3256",2015,"Corsinha Amarelo seminovo zerado" , true, 7390, 20000.00, false, 1, 1,1);
+
+insert into car(plate, age, description, status_car, km, price, sale_state, id_car_type, id_model, id_color)
+values("IPQ-9843",1979,"Chevettão interasso, reliquia, de colecionador", false, 590390, 7500.00, false, 2, 2,9);
+
+insert into car(plate, age, description, status_car, km, price, sale_state, id_car_type, id_model, id_color)
+values("IZO-8922",2017,"Um grande carro para viagens", true, 0, 70000.00, false, 3, 3,9);
+
+insert into car(plate, age, description, status_car, km, price, sale_state, id_car_type, id_model, id_color)
+values("IQQ-3411",2002,"Um Sedan elegante", true, 150000, 12000.00, false, 4, 4,2);
+
+insert into car(plate, age, description, status_car, km, price, sale_state, id_car_type, id_model, id_color)
+values("IZY-3317",2012,"Um carro para a familia toda", false, 180000, 22500.00, false, 6, 5,10);
+
+insert into car(plate, age, description, status_car, km, price, sale_state, id_car_type, id_model, id_color)
+values("ITT-7349",2010,"O melhor carro da categoria", false, 159049, 21950.00, false, 6, 6,8);
+
+insert into car(plate, age, description, status_car, km, price, sale_state, id_car_type, id_model, id_color)
+values("IZK-1567",2015,"Com air bag o melhor para o trabalho", false, 37049, 36950.00, false, 6, 7,12);
+
+insert into car(plate, age, description, status_car, km, price, sale_state, id_car_type, id_model, id_color)
+values("IPT-9023",2008,"Compacto por fora, gigante por dentro. ", false, 67221, 19900.00, false, 1, 8, 9);
+
+insert into car(plate, age, description, status_car, km, price, sale_state, id_car_type, id_model, id_color)
+values("IGG-1273",2014,"É lindo mas bebe demais, mas vale a pena", false, 87000, 52900.00, false, 4, 9,2);
+
+insert into car(plate, age, description, status_car, km, price, sale_state, id_car_type, id_model, id_color)
+values("IJB-1970",2001,"O carro é uma merda mas pelo preço ta valendo", false, 150000, 5000.00, false, 1, 10,7);
+
+insert into car(plate, age, description, status_car, km, price, sale_state, id_car_type, id_model, id_color)
+values("ILT-9023",2014,"O carro que você sempre quis", false, 84000, 35900.00, false, 1, 11,8);
+
+insert into car(plate, age, description, status_car, km, price, sale_state, id_car_type, id_model, id_color)
+values("IKP-0462",2016,"Camionetao pra desfila na Dorival", false, 15221, 85500.00, false, 5, 12,11);
+
+insert into car(plate, age, description, status_car, km, price, sale_state, id_car_type, id_model, id_color)
+values("IKL-7712",2006,"O carro perfeito pros racha na ipiranga", false, 29221, 96000.00, false, 2, 13,9);
+
+insert into car(plate, age, description, status_car, km, price, sale_state, id_car_type, id_model, id_color)
+values("IKD-7222",2015,"O carro perfeito pra velho que quer pegar as novinha", false, 61221, 70000.00, false, 2, 14,5);
+
+insert into car(plate, age, description, status_car, km, price, sale_state, id_car_type, id_model, id_color)
+values("ISC-5522",2017,"Pra passa por cima de todo mundo", true, 0, 180000.00, false, 5, 15,4);
+
+insert into car(plate, age, description, status_car, km, price, sale_state, id_car_type, id_model, id_color)
+values("LKS-8769",2011,"Pra da banda no parcao", false, 86000, 26900.00, false, 3, 16,7);
+
+insert into car(plate, age, description, status_car, km, price, sale_state, id_car_type, id_model, id_color)
+values("LUK-1769",1994,"Perfeito pra cara chato passa com som alto", false, 350000, 9300.00, false, 3, 17,9);
+
+insert into car(plate, age, description, status_car, km, price, sale_state, id_car_type, id_model, id_color)
+values("LGP-6666",2011,"Bebe que é um demonho mas é foda", false, 860000, 30000.00, false, 2, 18,5);
+
+
+
+
+
+
+
+
+insert into state(name) values("AC");
+insert into state(name) values("AL");
+insert into state(name) values("AP");
+insert into state(name) values("AM");
+insert into state(name) values("BA");
+insert into state(name) values("CE");
+insert into state(name) values("DF");
+insert into state(name) values("ES");
+insert into state(name) values("GO");
+insert into state(name) values("MA");
+insert into state(name) values("MG");
+insert into state(name) values("MS");
+insert into state(name) values("MT");
+insert into state(name) values("PA");
+insert into state(name) values("PB");
+insert into state(name) values("PR");
+insert into state(name) values("PE");
+insert into state(name) values("PI");
+insert into state(name) values("RJ");
+insert into state(name) values("RN");
+insert into state(name) values("RO");
+insert into state(name) values("RR");
+insert into state(name) values("RS");
+insert into state(name) values("SC");
+insert into state(name) values("SE");
+insert into state(name) values("SP");
+insert into state(name) values("TO");
+
+
+select * from car;
+select * from car_type;
 
 select *
 from model as m
 join manufacturer as a on m.id_manufacturer = a.id_manufacturer
-where a.name = "Chevrolet";
- 
+where a.name = "Honda";
 
-insert into model_color(id_model, id_color) values(1,1);
-insert into manufacturer(name) values ("Chevrolet");
+select * 
+from car as c
+join car_type as t on c.id_car_type = t.id_car_type
+where t.name = "Passeio" ;
 
-
-select * from car;
-select * from manufacturer;
-select * from model;
-select * from color;
 
 
