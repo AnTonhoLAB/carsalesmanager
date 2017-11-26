@@ -3,14 +3,14 @@ use carSalesManager;
 
 create table state(
 	id_state int not null auto_increment,
-    nome varchar(2),
+    name varchar(2),
     
     primary key (id_state)
 );
 
 create table city(
 	id_city int not null auto_increment,
-    nome varchar(50),
+    name varchar(50),
     
     id_state int,
     
@@ -90,21 +90,21 @@ create table payment(
 
 create table color(
 	id_color int not null auto_increment,
-    nome varchar(15),
+    name varchar(15),
     
     primary key (id_color)
 );
 
 create table manufacturer(
 	id_manufacturer int not null auto_increment,
-    nome varchar(20),
+    name varchar(20),
 	
     primary key (id_manufacturer)
 );
 
 create table model(
 	id_model int not null auto_increment,
-    nome varchar(30),
+    name varchar(30),
     id_manufacturer int,
     primary key (id_model),
     
@@ -127,7 +127,7 @@ create table model_color(
 
 create table car_type(
 	id_car_type int not null auto_increment,
-    nome varchar(15),
+    name varchar(15),
     
     primary key (id_car_type)
 );
@@ -157,3 +157,71 @@ create table car(
     constraint fk_sale foreign key (id_sale)
     references sale(id_sale) on delete no action on update cascade
 );
+
+insert into color(name) values("Amarelo");
+insert into color(name) values("Azul");
+insert into color(name) values("Branco");
+insert into color(name) values("Cinza");
+insert into color(name) values("Creme");
+insert into color(name) values("Laranja");
+insert into color(name) values("Marrom");
+insert into color(name) values("Perola");
+insert into color(name) values("Preto");
+insert into color(name) values("Rosa");
+insert into color(name) values("Verde");
+insert into color(name) values("Vermerlho");
+
+insert into manufacturer(name) values ("Chevrolet");
+insert into manufacturer(name) values ("Fiat");
+insert into manufacturer(name) values ("Ford");
+insert into manufacturer(name) values ("Hyundai");
+insert into manufacturer(name) values ("Honda");
+insert into manufacturer(name) values ("Nissan");
+insert into manufacturer(name) values ("Toyota");
+insert into manufacturer(name) values ("Volkswagen");
+
+
+insert into model(name, id_manufacturer) values("Corsinha",1);
+insert into model(name, id_manufacturer) values("Chevette",1);
+insert into model(name, id_manufacturer) values("Cobalt",1);
+insert into model(name, id_manufacturer) values("Vectra",1);
+insert into model(name, id_manufacturer) values("Doblô",2);
+insert into model(name, id_manufacturer) values("Idea",2);
+insert into model(name, id_manufacturer) values("Fiorino",2);
+insert into model(name, id_manufacturer) values("Fiesta",3);
+insert into model(name, id_manufacturer) values("Focus",3);
+insert into model(name, id_manufacturer) values("Ka",3);
+insert into model(name, id_manufacturer) values("Elantra",4);
+insert into model(name, id_manufacturer) values("HB20",4);
+insert into model(name, id_manufacturer) values("i30",4);
+insert into model(name, id_manufacturer) values("Civic",5);
+insert into model(name, id_manufacturer) values("Fit",5);
+insert into model(name, id_manufacturer) values("HR-V",5);
+insert into model(name, id_manufacturer) values("350-Z",6);
+insert into model(name, id_manufacturer) values("Corolla",7);
+insert into model(name, id_manufacturer) values("Hilux",7);
+insert into model(name, id_manufacturer) values("Supra",7);
+insert into model(name, id_manufacturer) values("Fox",8);
+insert into model(name, id_manufacturer) values("Gol",8);
+insert into model(name, id_manufacturer) values("Corsa",1);
+insert into model(name, id_manufacturer) values("Cruze",1);
+insert into model(name, id_manufacturer) values("Opala",1);
+
+
+
+select *
+from model as m
+join manufacturer as a on m.id_manufacturer = a.id_manufacturer
+where a.name = "Chevrolet";
+ 
+
+insert into model_color(id_model, id_color) values(1,1);
+insert into manufacturer(name) values ("Chevrolet");
+
+
+select * from car;
+select * from manufacturer;
+select * from model;
+select * from color;
+
+
