@@ -5,6 +5,7 @@
  */
 package carsalesmanager.dao;
 
+import carsalesmanager.model.State;
 import java.io.Serializable;
 
 /**
@@ -12,5 +13,9 @@ import java.io.Serializable;
  * @author george
  */
 public class StateDAO extends HibernateDAO<State, Serializable> {
+    
+    public StateDAO(State entity) {
+        super(entity);
+    }
     
 }
