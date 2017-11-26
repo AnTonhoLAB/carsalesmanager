@@ -99,3 +99,30 @@ create table address(
     constraint fk_city foreign key (id_city)
     references city(id_city) on delete no action on update cascade
 );
+
+create table owner(
+	id_owner int not null auto_increment,
+    cpf varchar(14),
+    name varchar(50),
+    
+    id_address int,
+    
+    primary key(id_owner),
+    
+    constraint fk_add foreign key(id_address)
+    references address(id_address) on delete cascade on update cascade
+);
+
+create table contact(
+	id_contact int not null auto_increment,
+    telephone varchar(14),
+    cell varchar(15),
+    email varchar (50),
+    
+    id_owner int,
+    
+    primary key(id_contact),
+    
+    constraint fk_owner foreign key(id_owner)
+    references owner(id_owner) on delete cascade on update cascade
+)
