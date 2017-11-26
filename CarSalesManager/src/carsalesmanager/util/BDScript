@@ -67,56 +67,35 @@ create table car(
     references model(id_model)on delete no action on update cascade
 );
 
+create table state(
+	id_state int not null auto_increment,
+    nome varchar(2),
+    
+    primary key (id_state)
+);
 
+create table city(
+	id_city int not null auto_increment,
+    nome varchar(50),
+    
+    id_state int,
+    
+    primary key (id_city),
+    
+    constraint fk_state foreign key(id_state)
+    references state(id_state)on delete no action on update cascade
+);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+create table address(
+	id_address int not null auto_increment,
+    rua varchar(50),
+    numero int,
+    complemento varchar(15),
+    
+    id_city int,
+    
+    primary key (id_address),
+    
+    constraint fk_city foreign key (id_city)
+    references city(id_city) on delete no action on update cascade
+);
