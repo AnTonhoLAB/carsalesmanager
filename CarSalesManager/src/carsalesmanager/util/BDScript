@@ -152,6 +152,31 @@ create table car(
     references color(id_color) on delete no action on update cascade
 );
 
+Create table accessory (
+	id_accessory int not null auto_increment,
+	name varchar(50),
+    
+	primary key (id_accessory)
+);
+
+create table car_accessory(
+	
+    id_car int not null, 
+    id_accessory int not null,
+	
+    primary key(id_car, id_accessory),
+    
+    constraint fk_id_car foreign key(id_car)
+    references car(id_car) on delete cascade on update cascade,
+    
+    constraint fk_id_accessory foreign key(id_accessory)
+    references accessory(id_accessory) on delete cascade on update cascade
+);
+
+
+
+
+
 insert into color(name) values("Amarelo");
 insert into color(name) values("Azul");
 insert into color(name) values("Branco");
@@ -165,6 +190,19 @@ insert into color(name) values("Rosa");
 insert into color(name) values("Verde");
 insert into color(name) values("Vermerlho");
 
+insert accessory(name) value("Ar Condicionado");
+insert accessory(name) value("Toca Fitas");
+insert accessory(name) value("Roda Liga");
+insert accessory(name) value("Tapetes");
+insert accessory(name) value("Alarme");
+
+insert into car_type(name) values("Compacto");
+insert into car_type(name) values("Esportivo");
+insert into car_type(name) values("Passeio");
+insert into car_type(name) values("Sedan");
+insert into car_type(name) values("SUV");
+insert into car_type(name) values("Ultilitário");
+
 insert into manufacturer(name) values ("Chevrolet");
 insert into manufacturer(name) values ("Fiat");
 insert into manufacturer(name) values ("Ford");
@@ -173,33 +211,6 @@ insert into manufacturer(name) values ("Honda");
 insert into manufacturer(name) values ("Nissan");
 insert into manufacturer(name) values ("Toyota");
 insert into manufacturer(name) values ("Volkswagen");
-
-
-insert into model(name, id_manufacturer) values("Corsinha",1);
-insert into model(name, id_manufacturer) values("Chevette",1);
-insert into model(name, id_manufacturer) values("Cobalt",1);
-insert into model(name, id_manufacturer) values("Vectra",1);
-insert into model(name, id_manufacturer) values("Doblô",2);
-insert into model(name, id_manufacturer) values("Idea",2);
-insert into model(name, id_manufacturer) values("Fiorino",2);
-insert into model(name, id_manufacturer) values("Fiesta",3);
-insert into model(name, id_manufacturer) values("Focus",3);
-insert into model(name, id_manufacturer) values("Ka",3);
-insert into model(name, id_manufacturer) values("HB20",4);
-insert into model(name, id_manufacturer) values("HR-V",5);
-insert into model(name, id_manufacturer) values("350-Z",6);
-insert into model(name, id_manufacturer) values("Corolla",7);
-insert into model(name, id_manufacturer) values("Hilux",7);
-insert into model(name, id_manufacturer) values("Fox",8);
-insert into model(name, id_manufacturer) values("Gol",8);
-insert into model(name, id_manufacturer) values("Opala",1);
-
-insert into car_type(name) values("Compacto");
-insert into car_type(name) values("Esportivo");
-insert into car_type(name) values("Passeio");
-insert into car_type(name) values("Sedan");
-insert into car_type(name) values("SUV");
-insert into car_type(name) values("Ultilitário");
 
 insert into state(name) values("AC");
 insert into state(name) values("AL");
@@ -228,6 +239,25 @@ insert into state(name) values("SC");
 insert into state(name) values("SE");
 insert into state(name) values("SP");
 insert into state(name) values("TO");
+
+insert into model(name, id_manufacturer) values("Corsinha",1);
+insert into model(name, id_manufacturer) values("Chevette",1);
+insert into model(name, id_manufacturer) values("Cobalt",1);
+insert into model(name, id_manufacturer) values("Vectra",1);
+insert into model(name, id_manufacturer) values("Doblô",2);
+insert into model(name, id_manufacturer) values("Idea",2);
+insert into model(name, id_manufacturer) values("Fiorino",2);
+insert into model(name, id_manufacturer) values("Fiesta",3);
+insert into model(name, id_manufacturer) values("Focus",3);
+insert into model(name, id_manufacturer) values("Ka",3);
+insert into model(name, id_manufacturer) values("HB20",4);
+insert into model(name, id_manufacturer) values("HR-V",5);
+insert into model(name, id_manufacturer) values("350-Z",6);
+insert into model(name, id_manufacturer) values("Corolla",7);
+insert into model(name, id_manufacturer) values("Hilux",7);
+insert into model(name, id_manufacturer) values("Fox",8);
+insert into model(name, id_manufacturer) values("Gol",8);
+insert into model(name, id_manufacturer) values("Opala",1);
 
 insert into city(name, id_state) values("Porto Alegre", 23);
 insert into city(name, id_state) values("Gravataí", 23);
@@ -315,6 +345,25 @@ values("LKS-8769",2011,"Pra da banda no parcao", false, 86000, 26900.00, false, 
 insert into car(plate, age, description, status_car, km, price, sale_state, id_car_type, id_model, id_color, id_sale)
 values("LGP-6666",2011,"Bebe que é um demonho mas é foda", false, 860000, 30000.00, false, 2, 18,5, 5);
 
+
+insert into car_accessory(id_car, id_accessory)values(1,2);
+insert into car_accessory(id_car, id_accessory)values(1,3);
+insert into car_accessory(id_car, id_accessory)values(1,4);
+
+insert into car_accessory(id_car, id_accessory)values(2,1);
+insert into car_accessory(id_car, id_accessory)values(2,2);
+
+insert into car_accessory(id_car, id_accessory)values(3,1);
+insert into car_accessory(id_car, id_accessory)values(3,2);
+
+insert into car_accessory(id_car, id_accessory)values(4,1);
+insert into car_accessory(id_car, id_accessory)values(4,2);
+insert into car_accessory(id_car, id_accessory)values(4,3);
+
+insert into car_accessory(id_car, id_accessory)values(15,2);
+insert into car_accessory(id_car, id_accessory)values(15,3);
+
+insert into car_accessory(id_car, id_accessory)values(16,4);
 
 
 
