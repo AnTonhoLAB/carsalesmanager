@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Nov 26, 2017 6:00:22 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="carsalesmanager.model.Accessory" table="accessory" catalog="carSalesManager" optimistic-lock="version">
+        <id name="idAccessory" type="java.lang.Integer">
+            <column name="id_accessory" />
+            <generator class="identity" />
+        </id>
+        <property name="name" type="string">
+            <column name="name" length="50" />
+        </property>
+        <set name="cars" table="car_accessory" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_accessory" not-null="true" />
+            </key>
+            <many-to-many entity-name="carsalesmanager.model.Car">
+                <column name="id_car" not-null="true" />
+            </many-to-many>
+        </set>
+    </class>
+</hibernate-mapping>

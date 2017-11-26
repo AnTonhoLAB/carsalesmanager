@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Nov 26, 2017 6:00:22 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="carsalesmanager.model.Address" table="address" catalog="carSalesManager" optimistic-lock="version">
+        <id name="idAddress" type="java.lang.Integer">
+            <column name="id_address" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="city" class="carsalesmanager.model.City" fetch="select">
+            <column name="id_city" />
+        </many-to-one>
+        <property name="street" type="string">
+            <column name="street" length="50" />
+        </property>
+        <property name="houseNumber" type="java.lang.Integer">
+            <column name="house_number" />
+        </property>
+        <property name="complement" type="string">
+            <column name="complement" length="15" />
+        </property>
+        <set name="owners" table="owner" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_address" />
+            </key>
+            <one-to-many class="carsalesmanager.model.Owner" />
+        </set>
+    </class>
+</hibernate-mapping>

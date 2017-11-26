@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Nov 26, 2017 6:00:22 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="carsalesmanager.model.Sale" table="sale" catalog="carSalesManager" optimistic-lock="version">
+        <id name="idSale" type="java.lang.Integer">
+            <column name="id_sale" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="owner" class="carsalesmanager.model.Owner" fetch="select">
+            <column name="id_owner" />
+        </many-to-one>
+        <property name="saleDate" type="date">
+            <column name="sale_date" length="10" />
+        </property>
+        <property name="portionNumber" type="java.lang.Integer">
+            <column name="portion_number" />
+        </property>
+        <property name="amount" type="java.lang.Double">
+            <column name="amount" precision="22" scale="0" />
+        </property>
+        <property name="settled" type="java.lang.Boolean">
+            <column name="settled" />
+        </property>
+        <set name="cars" table="car" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_sale" />
+            </key>
+            <one-to-many class="carsalesmanager.model.Car" />
+        </set>
+        <set name="payments" table="payment" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_sale" />
+            </key>
+            <one-to-many class="carsalesmanager.model.Payment" />
+        </set>
+    </class>
+</hibernate-mapping>
