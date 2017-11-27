@@ -38,8 +38,6 @@ public class ControllerManager extends Application{
         Scene scene = new Scene(root);
         
         stage.setScene(scene);
-        
-        System.out.println("AIAIAIAI");
         stage.show();
     }
     
@@ -56,6 +54,4 @@ public class ControllerManager extends Application{
     public void unfreeze(){
         this.win.setOpacity(1);     
     }
-    
-    
 }
