@@ -10,8 +10,10 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.Window;
+import javafx.stage.WindowEvent;
 
 /**
  *
@@ -22,7 +24,10 @@ public class ControllerManager extends Application{
     private Window win;
     
     private RegisterCarController registerCar;
+    private RegisterOwnerController registerOwner;
     
+    private Stage ownerStage;
+    private Stage carStage;
     
     private static ControllerManager instance;
     
@@ -43,8 +48,48 @@ public class ControllerManager extends Application{
     
     
     public void RegisterCar() throws IOException{
-        this.registerCar = new RegisterCarController();
+            Parent root = FXMLLoader.load(getClass().getResource("/carsalesmanager/view/RegisterCarView.fxml"));
+            this.carStage = new Stage();
+            
+            this.carStage.initModality(Modality.APPLICATION_MODAL);
+            Scene scene = new Scene(root);
+            this.carStage.setScene(scene);
+            this.carStage.setResizable(false);
+            
+            this.carStage.show();
+            // configura ação apos a propria janela ser fechada
+            this.carStage.setOnCloseRequest((WindowEvent t) -> {
+                t.consume();
+                ControllerManager.getInstance().unfreeze();
+                this.carStage.close();
+            });
+        
     }
+    
+    public void RegisterOwner() throws IOException{
+           
+            Parent root = FXMLLoader.load(getClass().getResource("/carsalesmanager/view/RegisterOwner.fxml"));
+            this.ownerStage = new Stage();
+            
+            this.ownerStage.initModality(Modality.APPLICATION_MODAL);
+            Scene scene = new Scene(root);
+            this.ownerStage.setScene(scene);
+            this.ownerStage.setResizable(false);
+            
+            this.ownerStage.show();
+            // configura ação apos a propria janela ser fechada
+            this.ownerStage.setOnCloseRequest((WindowEvent t) -> {
+                t.consume();
+                ControllerManager.getInstance().unfreeze();
+                this.ownerStage.close();
+            });
+    }  
+    
+      public void closeOwner(){
+         
+         this.ownerStage.close();
+         this.unfreeze();
+      }
     
     public void freeze(Window window){
        this.win = window;
