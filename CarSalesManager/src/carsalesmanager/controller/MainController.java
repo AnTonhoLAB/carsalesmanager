@@ -58,15 +58,7 @@ public class MainController implements Initializable {
     private TableColumn <Car, String> carType;
     @FXML 
     private TableColumn <Car, String> price;
-<<<<<<< Updated upstream
-    
-    
-    
-    
-    
-=======
-   
->>>>>>> Stashed changes
+
     @FXML
     private Label label;
     
