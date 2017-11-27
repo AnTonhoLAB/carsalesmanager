@@ -8,30 +8,35 @@ package carsalesmanager.controller;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
+import javafx.scene.Node;
+
 
 /**
  * FXML Controller class
  *
  * @author george
  */
-public class RegisterCarController implements Initializable {
+public class RegisterOwnerController implements Initializable {
 
+   
     /**
      * Initializes the controller class.
      */
-    private Stage stage;
-   
-    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+     
     }    
     
+    
+    @FXML
+    private void Butao(ActionEvent event) throws IOException {
+     
+        
+         ControllerManager.getInstance().closeOwner();
+         ControllerManager.getInstance().unfreeze();
+    }
 }

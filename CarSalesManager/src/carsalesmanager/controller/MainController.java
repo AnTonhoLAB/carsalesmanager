@@ -39,7 +39,7 @@ import javafx.util.Callback;
  * @author george
  */
 public class MainController implements Initializable {
-    
+     CarDAO cDao;
     @FXML
     public TableView <Car> carsTableView;
     @FXML 
@@ -72,34 +72,17 @@ public class MainController implements Initializable {
     
     @FXML
     private void handleButtonAction(ActionEvent event) throws IOException {
-        
-        CarDAO cDao = new CarDAO(new Car());
-       
-        ArrayList<Car> cars = (ArrayList<Car>) cDao.findAllWithoutClose();
-        
-        for (Car car : cars) {
-            try {
-                
-                System.out.println(car.getModel().getName());
-            //    System.out.println(sDap.findAllWithoutClose());
-                
-            } catch (Exception e) {
-                System.out.println(e.toString());
-            }
-           
-        }
-         cDao.closeSession();
+     
+        this.cDao.closeSession();         
+        ControllerManager.getInstance().freeze(((Node)(event.getSource())).getScene().getWindow());
          
-         
-         ControllerManager.getInstance().freeze(((Node)(event.getSource())).getScene().getWindow());
-        ((Node)(event.getSource())).getScene().getWindow();
          ControllerManager.getInstance().RegisterCar();
     }
     
     
         private void populateTableView(){
         
-        CarDAO cDao = new CarDAO(new Car());
+        this.cDao = new CarDAO(new Car());
        
         this.cars = FXCollections.observableArrayList(cDao.findAllWithoutClose());
       
