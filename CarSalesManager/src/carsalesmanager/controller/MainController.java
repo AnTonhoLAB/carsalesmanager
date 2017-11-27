@@ -15,6 +15,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -23,9 +24,12 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellDataFeatures;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.util.Callback;
@@ -67,11 +71,37 @@ public class MainController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         populateTableView();
-                
+        contextMenu();
     }    
     
+    @FXML
+    private void handleButtonAction(ActionEvent event) throws IOException {
+        
+        CarDAO cDao = new CarDAO(new Car());
+       
+        ArrayList<Car> cars = (ArrayList<Car>) cDao.findAllWithoutClose();
+        
+        for (Car car : cars) {
+            try {
+                
+                System.out.println(car.getModel().getName());
+            //    System.out.println(sDap.findAllWithoutClose());
+                
+            } catch (Exception e) {
+                System.out.println(e.toString());
+            }
+           
+        }
+         cDao.closeSession();
+         
+         
+         ControllerManager.getInstance().freeze(((Node)(event.getSource())).getScene().getWindow());
+        ((Node)(event.getSource())).getScene().getWindow();
+         ControllerManager.getInstance().RegisterCar();
+    }
     
-    private void populateTableView(){
+    
+        private void populateTableView(){
         
         CarDAO cDao = new CarDAO(new Car());
        
@@ -120,30 +150,40 @@ public class MainController implements Initializable {
         this.carsTableView.setItems(cars);
     }
  
-    
-    @FXML
-    private void handleButtonAction(ActionEvent event) throws IOException {
-        
-        CarDAO cDao = new CarDAO(new Car());
+    private void contextMenu(){
        
-        ArrayList<Car> cars = (ArrayList<Car>) cDao.findAllWithoutClose();
+    // ADD um menu de contexto ao clicar com o botão direito sobre uma célula
+    carsTableView.setRowFactory((TableView<Car> param) -> {
         
-        for (Car car : cars) {
-            try {
-                
-                System.out.println(car.getModel().getName());
-            //    System.out.println(sDap.findAllWithoutClose());
-                
-            } catch (Exception e) {
-                System.out.println(e.toString());
-            }
-           
-        }
-         cDao.closeSession();
-         
-         
-         ControllerManager.getInstance().freeze(((Node)(event.getSource())).getScene().getWindow());
-        ((Node)(event.getSource())).getScene().getWindow();
-         ControllerManager.getInstance().RegisterCar();
-    }
+        final TableRow<Car> row = new TableRow<>();
+        final ContextMenu contextMenu = new ContextMenu();
+        final MenuItem saleMenuItem = new MenuItem("Sale");
+        final MenuItem editMenuItem = new MenuItem("Edit");
+        final MenuItem removeMenuItem = new MenuItem("Remove");
+          // Action do que o botão criao no menu vai fazer
+      
+        saleMenuItem.setOnAction((ActionEvent event) -> {
+           //TODO 
+            System.out.println("TODO");
+        });  
+        editMenuItem.setOnAction((ActionEvent event) -> {
+           //TODO
+            System.out.println("TODO");
+        });
+          removeMenuItem.setOnAction((ActionEvent event) -> {
+          // TODO
+           System.out.println("TODO");
+        });
+        
+        // Add buttons on menu
+        contextMenu.getItems().add(saleMenuItem);
+        contextMenu.getItems().add(editMenuItem);
+        contextMenu.getItems().add(removeMenuItem);
+        //  dont show context menu in empty row
+        row.contextMenuProperty().bind(Bindings.when(row.emptyProperty()).then((ContextMenu)null).otherwise(contextMenu));
+        
+        
+        return row ;
+    });
+   }
 }
