@@ -6,7 +6,9 @@
 package carsalesmanager.controller;
 
 import carsalesmanager.dao.ColorDAO;
+import carsalesmanager.dao.ManufacturerDAO;
 import carsalesmanager.model.Color;
+import carsalesmanager.model.Manufacturer;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -35,11 +37,20 @@ public class RegisterCarController implements Initializable {
      */
     @FXML
     private ComboBox CBColor;
+    @FXML
+    private ComboBox CBManufacturer;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         populateCBColor();
+        populateCBManufacturer();
     }    
+    
+    
+    
+    
+    
+    
     
     
     private void populateCBColor(){
@@ -54,6 +65,20 @@ public class RegisterCarController implements Initializable {
         ObservableList obsCores = FXCollections.observableList(colorNames);
         CBColor.getItems().clear();
         CBColor.setItems(obsCores);
+    }
+    
+    private void populateCBManufacturer(){
+        ManufacturerDAO mDao = new ManufacturerDAO(new Manufacturer());
+        ArrayList<Manufacturer> manufacturers = (ArrayList<Manufacturer>) mDao.findAll();
+        ArrayList<String> manuNames = new ArrayList<>();
+        
+        for (Manufacturer manu : manufacturers) {
+            manuNames.add(manu.getName());
+        }
+        
+        ObservableList obsManus= FXCollections.observableList(manuNames);
+        CBManufacturer.getItems().clear();
+        CBManufacturer.setItems(obsManus);
     }
     
 }

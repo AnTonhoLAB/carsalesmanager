@@ -58,7 +58,7 @@
       <TextField layoutX="55.0" layoutY="102.0" prefHeight="26.0" prefWidth="150.0" />
       <TextField layoutX="255.0" layoutY="101.0" prefHeight="26.0" prefWidth="150.0" />
       <TextField layoutX="249.0" layoutY="140.0" prefHeight="26.0" prefWidth="150.0" />
-      <ComboBox layoutX="55.0" layoutY="65.0" prefWidth="150.0" />
+      <ComboBox fx:id="CBManufacturer" layoutX="55.0" layoutY="65.0" prefWidth="150.0" />
       <ComboBox fx:id="CBColor" layoutX="48.0" layoutY="137.0" prefWidth="150.0" />
     
     </children>
