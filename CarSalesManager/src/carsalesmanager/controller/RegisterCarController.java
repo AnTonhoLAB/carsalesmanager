@@ -30,6 +30,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.RadioButton;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleGroup;
@@ -61,6 +62,8 @@ public class RegisterCarController implements Initializable {
     private ToggleGroup TGState;
     @FXML
     private ToggleGroup TGType;
+    @FXML
+    private TextArea TADescription;
     
     ArrayList<Manufacturer> manufacturers;
     
@@ -70,7 +73,7 @@ public class RegisterCarController implements Initializable {
 
         this.TFAge.setMask("NNNN");
         this.TFAge.setPromptText("EX: 1999");
-        this.TFKm.setMask("N!");
+        this.TFKm.setMask("NNNNNNNNN");
         this.TFPlate.setMask("PPP-NNNN");
         this.TFPlate.setPromptText("EX: QQQ-6666");
 
@@ -80,8 +83,7 @@ public class RegisterCarController implements Initializable {
     
     @FXML
     private void BTSave(ActionEvent event) throws IOException {
-        getModel();
-
+        System.out.println(getDescription());
         //get status from radio button
          RadioButton chk = (RadioButton)TGState.getSelectedToggle();  
          boolean status = chk.getText().contains("N") ? true : false;     
@@ -89,8 +91,8 @@ public class RegisterCarController implements Initializable {
           
         try{
           //  System.out.println(this.Estado.getSelectedToggle().getUserData().toString());
-            
-     //     Car car = new Car(cartype, color, model, sale, plate, age, description, status, km, price, false, accessories)
+         //   Car car = new Car(carType, color, model, sale, plate, Integer.SIZE, description, status, Integer.SIZE, Double.NaN, status, accessories)
+     //     Car car = new Car(cartype, color, model, plate, age, description, status, km, price, false, accessories)
         } catch (Exception e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("ERRO");
@@ -140,20 +142,31 @@ public class RegisterCarController implements Initializable {
         try {
              String nameManu = CBManufacturer.getSelectionModel().getSelectedItem().toString();
     
-             for(Manufacturer man : this.manufacturers){
-          if(man.getName().contains(nameManu)){
-            manu = man;
-          }
-        }
+            for(Manufacturer man : this.manufacturers){
+                if(man.getName().contains(nameManu)){
+                manu = man;
+            }
+            }
         } catch (Exception e) {
            manu = new Manufacturer();
            manu.setName("");
         }
         mod.setName(TFModel.getText());
         mod.setManufacturer(manu);
-        System.out.println("MARCA RETORNO");
-        System.out.println(mod.getName() + "    " + mod.getManufacturer().getName());
+ 
         return mod;
+    }
+    
+    private String getPlate(){
+        return TFPlate.getText().toUpperCase();
+    }
+    
+    private int getKm(){
+        return Integer.parseInt(TFKm.getText());
+    }
+            
+    private String getDescription(){
+        return TADescription.getText();
     }
     
     private void populateCBColor(){
