@@ -54,8 +54,6 @@ public abstract class HibernateDAO<T, ID extends Serializable> implements Serial
 		s = HibernateUtil.getSessionFactory().openSession();
 		List<T> lista = s.createCriteria(entity.getClass()).list();
 		s.close();
-                System.out.println("Aqui" + lista);
-                
 		return lista;
 	}
         public List<T> findAllWithoutClose(){

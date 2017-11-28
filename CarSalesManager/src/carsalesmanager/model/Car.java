@@ -43,6 +43,20 @@ public class Car  implements java.io.Serializable {
     public Car() {
     }
     
+     public Car(CarType carType, Color color, Model model, String plate, Integer age, String description, Boolean statusCar, Integer km, Double price, Boolean saleState) {
+       this.carType = carType;
+       this.color = color;
+       this.model = model;
+       this.plate = plate;
+       this.age = age;
+       this.description = description;
+       this.statusCar = statusCar;
+       this.km = km;
+       this.price = price;
+       this.saleState = saleState;
+    }
+    
+    
      public Car(CarType carType, Color color, Model model, String plate, Integer age, String description, Boolean statusCar, Integer km, Double price, Boolean saleState, Set<Accessory> accessories) {
        this.carType = carType;
        this.color = color;

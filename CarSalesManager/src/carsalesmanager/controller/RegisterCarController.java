@@ -8,6 +8,7 @@ package carsalesmanager.controller;
 import carsalesmanager.dao.AccessoryDAO;
 import carsalesmanager.dao.ColorDAO;
 import carsalesmanager.dao.ManufacturerDAO;
+import carsalesmanager.dao.ModelDAO;
 import carsalesmanager.dao.TypeDao;
 import carsalesmanager.model.Accessory;
 import carsalesmanager.model.Car;
@@ -15,14 +16,15 @@ import carsalesmanager.model.CarType;
 import carsalesmanager.model.Color;
 import carsalesmanager.model.Manufacturer;
 import carsalesmanager.model.Model;
+import carsalesmanager.model.bo.CarBO;
 import carsalesmanager.util.MaskTextField;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Optional;
 import java.util.ResourceBundle;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
+import java.util.Set;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -31,6 +33,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextArea;
@@ -49,6 +52,18 @@ public class RegisterCarController implements Initializable {
     /**
      * Initializes the controller class.
      */
+    @FXML
+    private CheckBox CBAr;
+    @FXML
+    private CheckBox CBAlarm;
+    @FXML
+    private CheckBox CBRoda;
+    @FXML
+    private CheckBox CBTapete;
+    @FXML
+    private CheckBox CBFita;
+    
+
     @FXML
     private ComboBox CBColor;
     @FXML
@@ -93,16 +108,18 @@ public class RegisterCarController implements Initializable {
     
     @FXML
     private void BTSave(ActionEvent event) throws IOException {
-        System.out.println(getColor().getName());
+        
+        getAccessories();
         //get status from radio button
-         RadioButton chk = (RadioButton)TGState.getSelectedToggle();  
-         boolean status = chk.getText().contains("N") ? true : false;     
-       
+         
           
         try{
+            CarBO cbo = new CarBO();
+           
+            Car car = new Car(getCarType(), getColor(), getModel(), getPlate(), getAge(), getDescription(), getStatus(), getKm(), getPrice(), false, getAccessories());
+          
+            cbo.save(car);
             
-         
-     //     Car car = new Car(cartype, color, model, plate, age, description, status, km, price, false, accessories)
         } catch (Exception e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("ERRO");
@@ -114,22 +131,17 @@ public class RegisterCarController implements Initializable {
     
     private CarType getCarType(){
         RadioButton chk = (RadioButton)TGType.getSelectedToggle();  
-        CarType cType = new CarType();
+        CarType cType = new CarType();  
         
-        if(chk.getText().contains("pac")){
-            cType.setName("Compacto");
-        }else if(chk.getText().contains("porti")){
-            cType.setName("Esportivo");
-        } else if(chk.getText().contains("sseio")){
-            cType.setName("Passeio");
-        } else if(chk.getText().contains("dan")){
-            cType.setName("Sedan");
-        } else if(chk.getText().contains("tario")){
-            cType.setName("Ultilitário");
-        } else{
-            cType.setName("SUV");
+        TypeDao tDao = new TypeDao(new CarType());
+        ArrayList<CarType> types = (ArrayList<CarType>) tDao.findAll();
+        
+        for (CarType type : types) {
+            if(type.getName().contains(chk.getText())){
+                cType = type;
+                System.out.println(cType.getName());
+            }
         }
- 
         return cType;
     }   
     
@@ -152,7 +164,8 @@ public class RegisterCarController implements Initializable {
         return color;
     }
 
-    private Model getModel(){
+    private Model getModel() throws Exception{
+        
      Model mod = new Model();
      Manufacturer manu = new Manufacturer();
         try {
@@ -169,22 +182,93 @@ public class RegisterCarController implements Initializable {
         }
         mod.setName(TFModel.getText());
         mod.setManufacturer(manu);
- 
+        
+        ModelDAO mdao = new ModelDAO(new Model());
+        mdao.save(mod); 
         return mod;
     }
     
     private String getPlate(){
         return TFPlate.getText().toUpperCase();
     }
-    
-    private int getKm(){
-        return Integer.parseInt(TFKm.getText());
-    }
             
     private String getDescription(){
         return TADescription.getText();
     }
     
+    private boolean getStatus(){
+        RadioButton chk = (RadioButton)TGState.getSelectedToggle();  
+        return chk.getText().contains("N") ? true : false;     
+    }
+     
+    private int getKm(){
+        int toReturn;
+        
+        try {
+            toReturn = Integer.parseInt(TFKm.getText());
+        } catch (Exception e) {
+            toReturn = -1;
+        }
+    
+        return toReturn;
+    }
+    
+    private int getAge(){
+        int toReturn;
+        
+        try {
+           toReturn = Integer.parseInt(TFAge.getText()); 
+        } catch (Exception e) {
+            toReturn = 0;
+        }
+ 
+        return toReturn;
+    }
+    
+    private double getPrice(){
+        double toReturn;
+        
+        try {
+            toReturn = Double.parseDouble(TFKm.getText());
+        } catch (Exception e) {
+            toReturn = 0;
+        }
+        
+        return toReturn;        
+    }
+    
+    private Set<Accessory> getAccessories(){
+        AccessoryDAO aDao = new AccessoryDAO(new Accessory());
+        ArrayList<Accessory> fetchAcc = (ArrayList<Accessory>) aDao.findAll();
+        ArrayList<Accessory>  acc = new ArrayList<>();
+        ArrayList<String> acString = new ArrayList<>();
+        //pega os checkbox que estao selecionados 
+        if (CBAlarm.isSelected())
+            acString.add("Alarme");
+        if (CBAr.isSelected())
+            acString.add("Ar");
+        if (CBRoda.isSelected())
+            acString.add("Roda de liga");
+        if (CBTapete.isSelected())
+            acString.add("Tapete");
+        if (CBFita.isSelected())
+            acString.add("Toca Fitas");
+        
+    
+        
+        for (String string : acString) {
+           for(Accessory acces : fetchAcc){
+               if(acces.getName().contains(string)){
+                   acc.add(acces);
+               }
+           }
+            
+        }
+        
+        Set<Accessory> foo = new HashSet<Accessory>(acc);
+        return foo;
+    }
+ 
     private void populateCBColor(){
         ColorDAO cDao = new ColorDAO(new Color());
         this.colors =  (ArrayList<Color>) cDao.findAll();

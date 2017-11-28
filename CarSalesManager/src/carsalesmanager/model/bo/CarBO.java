@@ -20,15 +20,16 @@ public class CarBO {
     }
     
     private void validate(Car car) throws Exception{
-        if(car.getAge() > 1900 || car.getAge() > 2017){
+        if(car.getAge() < 1900 || car.getAge() > 2017){
             throw new Exception("O carro deve ter um ano entre 1900 e o ano atual");
         }      
         
     }
     
-    private void save(Car car) throws Exception{
+    public void save(Car car) throws Exception{
         validate(car);
-        this.cDao.save(car);
+        System.out.println("foi");
+       this.cDao.save(car);
     }
     
     private void delete(Car car) throws Exception{
