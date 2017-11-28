@@ -5,8 +5,11 @@
  */
 package carsalesmanager.controller;
 
+import carsalesmanager.dao.AccessoryDAO;
 import carsalesmanager.dao.ColorDAO;
 import carsalesmanager.dao.ManufacturerDAO;
+import carsalesmanager.dao.TypeDao;
+import carsalesmanager.model.Accessory;
 import carsalesmanager.model.Car;
 import carsalesmanager.model.CarType;
 import carsalesmanager.model.Color;
@@ -66,32 +69,39 @@ public class RegisterCarController implements Initializable {
     private TextArea TADescription;
     
     ArrayList<Manufacturer> manufacturers;
-    
+    ArrayList<Color> colors;
+    ArrayList<CarType> carTypes;
+    ArrayList<Accessory> accessories;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
+        TypeDao tDao = new TypeDao(new CarType());
+        AccessoryDAO aDao = new AccessoryDAO(new Accessory());
+        
         this.TFAge.setMask("NNNN");
         this.TFAge.setPromptText("EX: 1999");
         this.TFKm.setMask("NNNNNNNNN");
         this.TFPlate.setMask("PPP-NNNN");
         this.TFPlate.setPromptText("EX: QQQ-6666");
-
+      
+        this.carTypes = (ArrayList<CarType>) tDao.findAll();
+        this.accessories = (ArrayList<Accessory>) aDao.findAll();
+        
         populateCBColor();
         populateCBManufacturer();
     }    
     
     @FXML
     private void BTSave(ActionEvent event) throws IOException {
-        System.out.println(getDescription());
+        System.out.println(getColor().getName());
         //get status from radio button
          RadioButton chk = (RadioButton)TGState.getSelectedToggle();  
          boolean status = chk.getText().contains("N") ? true : false;     
-         System.out.println(status);
+       
           
         try{
-          //  System.out.println(this.Estado.getSelectedToggle().getUserData().toString());
-         //   Car car = new Car(carType, color, model, sale, plate, Integer.SIZE, description, status, Integer.SIZE, Double.NaN, status, accessories)
+            
+         
      //     Car car = new Car(cartype, color, model, plate, age, description, status, km, price, false, accessories)
         } catch (Exception e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -119,20 +129,26 @@ public class RegisterCarController implements Initializable {
         } else{
             cType.setName("SUV");
         }
-        
-        System.out.println(cType.getName());
+ 
         return cType;
     }   
     
     private Color getColor(){
         Color color = new Color();
+        
         try {
             String name = CBColor.getSelectionModel().getSelectedItem().toString();
-        
-            color.setName(name);
+            
+            for (Color col : colors) {
+                if(col.getName().contains(name)){
+                    color = col;
+                }
+            }
         } catch (Exception e) {
            color.setName("");
         }
+        
+        System.out.println(color.getName());
         return color;
     }
 
@@ -171,7 +187,7 @@ public class RegisterCarController implements Initializable {
     
     private void populateCBColor(){
         ColorDAO cDao = new ColorDAO(new Color());
-        ArrayList<Color> colors =  (ArrayList<Color>) cDao.findAll();
+        this.colors =  (ArrayList<Color>) cDao.findAll();
         ArrayList<String> colorNames = new ArrayList<>();
         
         for (Color color : colors) {
