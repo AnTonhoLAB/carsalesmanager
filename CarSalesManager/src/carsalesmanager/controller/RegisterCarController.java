@@ -6,13 +6,18 @@
 package carsalesmanager.controller;
 
 import carsalesmanager.dao.ColorDAO;
+import carsalesmanager.dao.HibernateDAO;
 import carsalesmanager.dao.ManufacturerDAO;
 import carsalesmanager.model.Color;
 import carsalesmanager.model.Manufacturer;
+import carsalesmanager.util.MaskFieldUtil;
+import carsalesmanager.util.MaskTextField;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -21,9 +26,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
+import javafx.scene.control.TextField;
+
 
 /**
  * FXML Controller class
@@ -39,9 +43,32 @@ public class RegisterCarController implements Initializable {
     private ComboBox CBColor;
     @FXML
     private ComboBox CBManufacturer;
+    @FXML
+    private MaskTextField TFAge;
+    @FXML
+    private MaskTextField TFKm;
+    @FXML
+    private MaskTextField TFPlate;
+    
+    
+    
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+
+        this.TFAge.setMask("NNNN");
+        this.TFAge.setPromptText("EX: 1999");
+        this.TFKm.setMask("N!");
+        this.TFPlate.setMask("PPP-NNNN");
+        this.TFPlate.setPromptText("EX: QQQ-6666");
+       // this.TFPlate.setMask("PPP-NNNN");
+      
+//        
+//        MaskFieldUtil.numericField(TFAge);
+//        MaskFieldUtil.maxField(TFAge, 4);
+//        MaskFieldUtil.numericField(TFKm);
+//   
+     
         populateCBColor();
         populateCBManufacturer();
     }    
