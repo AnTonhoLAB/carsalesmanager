@@ -8,7 +8,7 @@
 
 <AnchorPane id="AnchorPane" prefHeight="755.0" prefWidth="952.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="carsalesmanager.controller.MainController">
     <children>
-        <Button fx:id="button" layoutX="841.0" layoutY="699.0" onAction="#handleButtonAction" text="Adicionar" />
+        <Button fx:id="button" layoutX="794.0" layoutY="699.0" onAction="#handleButtonAction" prefHeight="26.0" prefWidth="127.0" text="Adicionar Carro" />
         <Label fx:id="label" layoutX="126" layoutY="120" minHeight="16" minWidth="69" />
       <TableView fx:id="carsTableView" layoutX="8.0" layoutY="7.0" prefHeight="671.0" prefWidth="938.0">
         <columns>
