@@ -21,8 +21,6 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Optional;
 import java.util.ResourceBundle;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -31,6 +29,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextArea;
@@ -49,6 +48,18 @@ public class RegisterCarController implements Initializable {
     /**
      * Initializes the controller class.
      */
+    @FXML
+    private CheckBox CBAr;
+    @FXML
+    private CheckBox CBAlarm;
+    @FXML
+    private CheckBox CBRoda;
+    @FXML
+    private CheckBox CBTapete;
+    @FXML
+    private CheckBox CBFita;
+    
+
     @FXML
     private ComboBox CBColor;
     @FXML
@@ -93,14 +104,13 @@ public class RegisterCarController implements Initializable {
     
     @FXML
     private void BTSave(ActionEvent event) throws IOException {
-        System.out.println(getAge());
+        
+        getAccessories();
         //get status from radio button
          
           
         try{
                 Car car = new Car();
-               //Car cSave = new Car(getCarType(), getColor(), getModel(), getPlate(), getA, description, Boolean.TRUE, Integer.SIZE, Double.NaN, Boolean.FALSE, accessories)
-         
      //     Car car = new Car(cartype, color, model, plate, age, description, status, km, price, false, accessories)
         } catch (Exception e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -124,7 +134,6 @@ public class RegisterCarController implements Initializable {
                 System.out.println(cType.getName());
             }
         }
- 
         return cType;
     }   
     
@@ -171,10 +180,6 @@ public class RegisterCarController implements Initializable {
     private String getPlate(){
         return TFPlate.getText().toUpperCase();
     }
-    
-    private int getKm(){
-        return Integer.parseInt(TFKm.getText());
-    }
             
     private String getDescription(){
         return TADescription.getText();
@@ -183,6 +188,18 @@ public class RegisterCarController implements Initializable {
     private boolean getStatus(){
         RadioButton chk = (RadioButton)TGState.getSelectedToggle();  
         return chk.getText().contains("N") ? true : false;     
+    }
+     
+    private int getKm(){
+        int toReturn;
+        
+        try {
+            toReturn = Integer.parseInt(TFKm.getText());
+        } catch (Exception e) {
+            toReturn = -1;
+        }
+    
+        return toReturn;
     }
     
     private int getAge(){
@@ -195,6 +212,46 @@ public class RegisterCarController implements Initializable {
         }
  
         return toReturn;
+    }
+    
+    private double getPrice(){
+        double toReturn;
+        
+        try {
+            toReturn = Double.parseDouble(TFKm.getText());
+        } catch (Exception e) {
+            toReturn = 0;
+        }
+        
+        return toReturn;        
+    }
+    
+    private Accessory[] getAccessories(){
+        AccessoryDAO aDao = new AccessoryDAO(new Accessory());
+        ArrayList<Accessory>  acc = new ArrayList<>();
+        ArrayList<String> acString = new ArrayList<>();
+        //pega os checkbox que estao selecionados 
+        if (CBAlarm.isSelected())
+            acString.add("Alarme");
+        if (CBAr.isSelected())
+            acString.add("Ar");
+        if (CBRoda.isSelected())
+            acString.add("Roda de liga");
+        if (CBTapete.isSelected())
+            acString.add("Tapete");
+        if (CBFita.isSelected())
+            acString.add("Toca Fitas");
+        
+        System.out.println("começo");
+        
+        for (String string : acString) {
+            System.out.println(string);
+        }
+        
+        System.out.println("fim");
+        
+        
+        return null; 
     }
     
     private void populateCBColor(){
