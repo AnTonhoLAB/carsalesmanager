@@ -93,14 +93,13 @@ public class RegisterCarController implements Initializable {
     
     @FXML
     private void BTSave(ActionEvent event) throws IOException {
-        System.out.println(getColor().getName());
+        System.out.println(getCarType().getName());
         //get status from radio button
-         RadioButton chk = (RadioButton)TGState.getSelectedToggle();  
-         boolean status = chk.getText().contains("N") ? true : false;     
-       
+         
           
         try{
-            
+                Car car = new Car();
+               
          
      //     Car car = new Car(cartype, color, model, plate, age, description, status, km, price, false, accessories)
         } catch (Exception e) {
@@ -114,20 +113,16 @@ public class RegisterCarController implements Initializable {
     
     private CarType getCarType(){
         RadioButton chk = (RadioButton)TGType.getSelectedToggle();  
-        CarType cType = new CarType();
+        CarType cType = new CarType();  
         
-        if(chk.getText().contains("pac")){
-            cType.setName("Compacto");
-        }else if(chk.getText().contains("porti")){
-            cType.setName("Esportivo");
-        } else if(chk.getText().contains("sseio")){
-            cType.setName("Passeio");
-        } else if(chk.getText().contains("dan")){
-            cType.setName("Sedan");
-        } else if(chk.getText().contains("tario")){
-            cType.setName("Ultilitário");
-        } else{
-            cType.setName("SUV");
+        TypeDao tDao = new TypeDao(new CarType());
+        ArrayList<CarType> types = (ArrayList<CarType>) tDao.findAll();
+        
+        for (CarType type : types) {
+            if(type.getName().contains(chk.getText())){
+                cType = type;
+                System.out.println(cType.getName());
+            }
         }
  
         return cType;
@@ -183,6 +178,11 @@ public class RegisterCarController implements Initializable {
             
     private String getDescription(){
         return TADescription.getText();
+    }
+    
+    private boolean getStatus(){
+        RadioButton chk = (RadioButton)TGState.getSelectedToggle();  
+        return chk.getText().contains("N") ? true : false;     
     }
     
     private void populateCBColor(){
