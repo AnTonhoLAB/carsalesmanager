@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
@@ -54,5 +53,13 @@
             <CheckBox layoutX="13.0" layoutY="126.0" mnemonicParsing="false" text="Toca-Fitas" />
          </children></Pane>
     <TextArea fx:id="taDescricao" layoutX="85.0" layoutY="373.0" prefHeight="85.0" prefWidth="377.0" />
+      <TextField layoutX="94.0" layoutY="29.0" prefHeight="26.0" prefWidth="367.0" />
+      <TextField layoutX="270.0" layoutY="66.0" prefHeight="26.0" prefWidth="150.0" />
+      <TextField layoutX="55.0" layoutY="102.0" prefHeight="26.0" prefWidth="150.0" />
+      <TextField layoutX="255.0" layoutY="101.0" prefHeight="26.0" prefWidth="150.0" />
+      <TextField layoutX="249.0" layoutY="140.0" prefHeight="26.0" prefWidth="150.0" />
+      <ComboBox layoutX="55.0" layoutY="65.0" prefWidth="150.0" />
+      <ComboBox fx:id="CBColor" layoutX="48.0" layoutY="137.0" prefWidth="150.0" />
+    
     </children>
 </AnchorPane>
