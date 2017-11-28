@@ -6,7 +6,6 @@
 package carsalesmanager.controller;
 
 import carsalesmanager.dao.ColorDAO;
-import carsalesmanager.dao.HibernateDAO;
 import carsalesmanager.dao.ManufacturerDAO;
 import carsalesmanager.model.Color;
 import carsalesmanager.model.Manufacturer;
@@ -15,17 +14,13 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
+import javafx.scene.Node;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.TextField;
 
 
 /**
@@ -64,6 +59,19 @@ public class RegisterCarController implements Initializable {
         populateCBColor();
         populateCBManufacturer();
     }    
+    
+    @FXML
+    private void BTSave(ActionEvent event) throws IOException {
+     
+            System.out.println("ARRRIBA");
+            System.out.println("ARRRIBA");
+            System.out.println("ARRRIBA");
+            System.out.println("ARRRIBA");
+            
+//        ControllerManager.getInstance().freeze(((Node)(event.getSource())).getScene().getWindow());
+//         
+//         ControllerManager.getInstance().RegisterCar();
+    }
     
     
     
