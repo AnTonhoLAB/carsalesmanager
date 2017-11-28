@@ -10,7 +10,6 @@ import carsalesmanager.dao.HibernateDAO;
 import carsalesmanager.dao.ManufacturerDAO;
 import carsalesmanager.model.Color;
 import carsalesmanager.model.Manufacturer;
-import carsalesmanager.util.MaskFieldUtil;
 import carsalesmanager.util.MaskTextField;
 import java.io.IOException;
 import java.net.URL;
@@ -61,14 +60,7 @@ public class RegisterCarController implements Initializable {
         this.TFKm.setMask("N!");
         this.TFPlate.setMask("PPP-NNNN");
         this.TFPlate.setPromptText("EX: QQQ-6666");
-       // this.TFPlate.setMask("PPP-NNNN");
-      
-//        
-//        MaskFieldUtil.numericField(TFAge);
-//        MaskFieldUtil.maxField(TFAge, 4);
-//        MaskFieldUtil.numericField(TFKm);
-//   
-     
+
         populateCBColor();
         populateCBManufacturer();
     }    
