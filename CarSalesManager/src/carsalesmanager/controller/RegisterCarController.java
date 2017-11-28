@@ -8,6 +8,7 @@ package carsalesmanager.controller;
 import carsalesmanager.dao.AccessoryDAO;
 import carsalesmanager.dao.ColorDAO;
 import carsalesmanager.dao.ManufacturerDAO;
+import carsalesmanager.dao.ModelDAO;
 import carsalesmanager.dao.TypeDao;
 import carsalesmanager.model.Accessory;
 import carsalesmanager.model.Car;
@@ -15,12 +16,15 @@ import carsalesmanager.model.CarType;
 import carsalesmanager.model.Color;
 import carsalesmanager.model.Manufacturer;
 import carsalesmanager.model.Model;
+import carsalesmanager.model.bo.CarBO;
 import carsalesmanager.util.MaskTextField;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import java.util.Set;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -110,8 +114,12 @@ public class RegisterCarController implements Initializable {
          
           
         try{
-                Car car = new Car();
-     //     Car car = new Car(cartype, color, model, plate, age, description, status, km, price, false, accessories)
+            CarBO cbo = new CarBO();
+           
+            Car car = new Car(getCarType(), getColor(), getModel(), getPlate(), getAge(), getDescription(), getStatus(), getKm(), getPrice(), false, getAccessories());
+          
+            cbo.save(car);
+            
         } catch (Exception e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("ERRO");
@@ -156,7 +164,8 @@ public class RegisterCarController implements Initializable {
         return color;
     }
 
-    private Model getModel(){
+    private Model getModel() throws Exception{
+        
      Model mod = new Model();
      Manufacturer manu = new Manufacturer();
         try {
@@ -173,7 +182,9 @@ public class RegisterCarController implements Initializable {
         }
         mod.setName(TFModel.getText());
         mod.setManufacturer(manu);
- 
+        
+        ModelDAO mdao = new ModelDAO(new Model());
+        mdao.save(mod); 
         return mod;
     }
     
@@ -226,7 +237,7 @@ public class RegisterCarController implements Initializable {
         return toReturn;        
     }
     
-    private ArrayList<Accessory> getAccessories(){
+    private Set<Accessory> getAccessories(){
         AccessoryDAO aDao = new AccessoryDAO(new Accessory());
         ArrayList<Accessory> fetchAcc = (ArrayList<Accessory>) aDao.findAll();
         ArrayList<Accessory>  acc = new ArrayList<>();
@@ -254,17 +265,10 @@ public class RegisterCarController implements Initializable {
             
         }
         
-    
-        for (Accessory string : acc) {
-            System.out.println(string.getName());
-        }
-        
-        return acc; 
+        Set<Accessory> foo = new HashSet<Accessory>(acc);
+        return foo;
     }
-    
-    
-    
-    
+ 
     private void populateCBColor(){
         ColorDAO cDao = new ColorDAO(new Color());
         this.colors =  (ArrayList<Color>) cDao.findAll();
