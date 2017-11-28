@@ -226,8 +226,9 @@ public class RegisterCarController implements Initializable {
         return toReturn;        
     }
     
-    private Accessory[] getAccessories(){
+    private ArrayList<Accessory> getAccessories(){
         AccessoryDAO aDao = new AccessoryDAO(new Accessory());
+        ArrayList<Accessory> fetchAcc = (ArrayList<Accessory>) aDao.findAll();
         ArrayList<Accessory>  acc = new ArrayList<>();
         ArrayList<String> acString = new ArrayList<>();
         //pega os checkbox que estao selecionados 
@@ -242,17 +243,27 @@ public class RegisterCarController implements Initializable {
         if (CBFita.isSelected())
             acString.add("Toca Fitas");
         
-        System.out.println("começo");
+    
         
         for (String string : acString) {
-            System.out.println(string);
+           for(Accessory acces : fetchAcc){
+               if(acces.getName().contains(string)){
+                   acc.add(acces);
+               }
+           }
+            
         }
         
-        System.out.println("fim");
+    
+        for (Accessory string : acc) {
+            System.out.println(string.getName());
+        }
         
-        
-        return null; 
+        return acc; 
     }
+    
+    
+    
     
     private void populateCBColor(){
         ColorDAO cDao = new ColorDAO(new Color());
