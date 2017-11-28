@@ -30,6 +30,10 @@ public class CarType  implements java.io.Serializable {
     public CarType() {
     }
 
+    public CarType(String name){
+        this.name = name;
+    }
+        
     public CarType(String name, Set<Car> cars) {
        this.name = name;
        this.cars = cars;
