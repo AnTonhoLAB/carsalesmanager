@@ -93,13 +93,13 @@ public class RegisterCarController implements Initializable {
     
     @FXML
     private void BTSave(ActionEvent event) throws IOException {
-        System.out.println(getCarType().getName());
+        System.out.println(getAge());
         //get status from radio button
          
           
         try{
                 Car car = new Car();
-               
+               //Car cSave = new Car(getCarType(), getColor(), getModel(), getPlate(), getA, description, Boolean.TRUE, Integer.SIZE, Double.NaN, Boolean.FALSE, accessories)
          
      //     Car car = new Car(cartype, color, model, plate, age, description, status, km, price, false, accessories)
         } catch (Exception e) {
@@ -183,6 +183,18 @@ public class RegisterCarController implements Initializable {
     private boolean getStatus(){
         RadioButton chk = (RadioButton)TGState.getSelectedToggle();  
         return chk.getText().contains("N") ? true : false;     
+    }
+    
+    private int getAge(){
+        int toReturn;
+        
+        try {
+           toReturn = Integer.parseInt(TFAge.getText()); 
+        } catch (Exception e) {
+            toReturn = 0;
+        }
+ 
+        return toReturn;
     }
     
     private void populateCBColor(){
