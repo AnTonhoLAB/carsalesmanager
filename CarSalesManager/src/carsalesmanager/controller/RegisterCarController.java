@@ -113,6 +113,9 @@ public class RegisterCarController implements Initializable {
           
             cbo.save(car);
             
+         ControllerManager.getInstance().closeRegisterCar();
+         ControllerManager.getInstance().unfreeze();
+            
         } catch (Exception e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("ERRO");

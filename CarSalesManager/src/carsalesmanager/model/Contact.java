@@ -31,6 +31,11 @@ public class Contact  implements java.io.Serializable {
     public Contact() {
     }
 
+    public Contact(String telephone, String email) {
+       this.telephone = telephone;
+       this.email = email;
+    }
+    
     public Contact(Owner owner, String telephone, String cell, String email) {
        this.owner = owner;
        this.telephone = telephone;

@@ -34,6 +34,12 @@ public class Address  implements java.io.Serializable {
 
     public Address() {
     }
+    
+     public Address(City city, String street, Integer houseNumber) {
+       this.city = city;
+       this.street = street;
+       this.houseNumber = houseNumber;
+    }
 
     public Address(City city, String street, Integer houseNumber, String complement, Set<Owner> owners) {
        this.city = city;

@@ -79,8 +79,30 @@ public class MainController implements Initializable {
          ControllerManager.getInstance().RegisterCar();
     }
     
+    @FXML
+    private void BTAddOwner(ActionEvent event) throws IOException {
+     
+        this.cDao.closeSession();         
+        ControllerManager.getInstance().freeze(((Node)(event.getSource())).getScene().getWindow());
+         
+         ControllerManager.getInstance().RegisterOwner();
+    }
     
-        private void populateTableView(){
+    @FXML
+    private void BTSale(ActionEvent event) throws IOException {
+     
+        this.cDao.closeSession();         
+      
+    }
+    
+    @FXML
+    private void BTReload(ActionEvent event) throws IOException {
+     
+        populateTableView();
+      
+    }
+    
+        public void populateTableView(){
         
         this.cDao = new CarDAO(new Car());
        

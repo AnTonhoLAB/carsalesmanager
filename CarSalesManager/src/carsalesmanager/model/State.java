@@ -29,6 +29,10 @@ public class State  implements java.io.Serializable {
 
     public State() {
     }
+    
+     public State(String name) {
+       this.name = name;
+    }
 
     public State(String name, Set<City> cities) {
        this.name = name;
