@@ -33,7 +33,7 @@ public class RegisterOwnerController implements Initializable {
     
     
     @FXML
-    private void Butao(ActionEvent event) throws IOException {
+    private void BTSave(ActionEvent event) throws IOException {
      
         
          ControllerManager.getInstance().closeOwner();
