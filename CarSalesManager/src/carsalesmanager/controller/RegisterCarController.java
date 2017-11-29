@@ -8,7 +8,6 @@ package carsalesmanager.controller;
 import carsalesmanager.dao.AccessoryDAO;
 import carsalesmanager.dao.ColorDAO;
 import carsalesmanager.dao.ManufacturerDAO;
-import carsalesmanager.dao.ModelDAO;
 import carsalesmanager.dao.TypeDao;
 import carsalesmanager.model.Accessory;
 import carsalesmanager.model.Car;
@@ -30,7 +29,6 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.CheckBox;
@@ -38,7 +36,6 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleGroup;
 
 

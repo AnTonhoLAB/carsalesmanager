@@ -52,7 +52,7 @@ public class CarBO {
         this.cDao.delete(car);
     }
     
-    private void carType{
+    private void carType(){
     
 //     TypeDao tDao = new TypeDao(new CarType());
 //        ArrayList<CarType> types = (ArrayList<CarType>) tDao.findAll();
