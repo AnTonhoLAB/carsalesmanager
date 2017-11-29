@@ -86,6 +86,11 @@ public class ControllerManager extends Application{
             });
     }  
     
+    public void closeRegisterCar(){
+        this.carStage.close();
+        this.unfreeze();
+    }
+    
       public void closeOwner(){
          
          this.ownerStage.close();

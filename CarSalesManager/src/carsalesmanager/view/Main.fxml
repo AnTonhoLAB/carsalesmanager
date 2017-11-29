@@ -22,5 +22,8 @@
             <TableColumn fx:id="price" prefWidth="141.0" text="Preço" />
         </columns>
       </TableView>
+      <Button layoutX="631.0" layoutY="699.0" mnemonicParsing="false" onAction="#BTAddOwner" prefHeight="26.0" prefWidth="137.0" text="Aicionar Cliente" />
+      <Button layoutX="28.0" layoutY="699.0" mnemonicParsing="false" onAction="#BTSale" prefHeight="26.0" prefWidth="159.0" text="Vender Este Carro" />
+      <Button layoutX="421.0" layoutY="699.0" mnemonicParsing="false" onAction="#BTReload" text="Reload" />
     </children>
 </AnchorPane>

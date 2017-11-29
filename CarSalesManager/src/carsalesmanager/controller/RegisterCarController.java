@@ -113,6 +113,9 @@ public class RegisterCarController implements Initializable {
           
             cbo.save(car);
             
+         ControllerManager.getInstance().closeRegisterCar();
+         ControllerManager.getInstance().unfreeze();
+            
         } catch (Exception e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("ERRO");
@@ -120,6 +123,8 @@ public class RegisterCarController implements Initializable {
             alert.setResizable(true);
             Optional<ButtonType> result = alert.showAndWait();
         }
+        
+         
     }
     
     private CarType getCarType(){
