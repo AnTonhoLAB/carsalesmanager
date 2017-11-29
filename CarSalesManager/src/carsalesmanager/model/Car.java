@@ -98,7 +98,7 @@ public class Car  implements java.io.Serializable {
         this.idCar = idCar;
     }
 
-@ManyToOne(fetch=FetchType.LAZY)
+@ManyToOne(fetch=FetchType.EAGER)
     @JoinColumn(name="id_car_type")
     public CarType getCarType() {
         return this.carType;
@@ -108,7 +108,7 @@ public class Car  implements java.io.Serializable {
         this.carType = carType;
     }
 
-@ManyToOne(fetch=FetchType.LAZY)
+@ManyToOne(fetch=FetchType.EAGER)
     @JoinColumn(name="id_color")
     public Color getColor() {
         return this.color;
@@ -118,7 +118,7 @@ public class Car  implements java.io.Serializable {
         this.color = color;
     }
 
-@ManyToOne(fetch=FetchType.LAZY)
+@ManyToOne(fetch=FetchType.EAGER)
     @JoinColumn(name="id_model")
     public Model getModel() {
         return this.model;
@@ -128,7 +128,7 @@ public class Car  implements java.io.Serializable {
         this.model = model;
     }
 
-@ManyToOne(fetch=FetchType.LAZY)
+@ManyToOne(fetch=FetchType.EAGER)
     @JoinColumn(name="id_sale")
     public Sale getSale() {
         return this.sale;

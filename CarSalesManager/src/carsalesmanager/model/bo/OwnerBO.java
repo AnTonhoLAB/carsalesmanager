@@ -28,10 +28,11 @@ public class OwnerBO {
     private OwnerDAO oDao;
 
     public OwnerBO() {
-        this.oDao = oDao;
+        this.oDao = new OwnerDAO(new Owner());
     }
     
     private void validate(Owner owner)throws Exception{
+     
         if(owner.getName().length() == 0)
              throw  new Exception("O campo \"nome\" precisa ser preenchido");
         Set<Contact> contacts = owner.getContacts();
@@ -43,6 +44,12 @@ public class OwnerBO {
         }
         if(owner.getCpf().length() < 14)
             throw new Exception("Informe o cpf seguido a regra de: \n 3 numeros ponto 3 numeros ponto 3 numeros traço 2 numeros");
+        Set <Owner> lis = new HashSet<Owner> (this.oDao.findAll());
+        for (Owner li : lis) {
+            if(li.getCpf().contains(owner.getCpf())){
+                throw new Exception ("O Cpf informado ja esta cadastrado");
+            }
+        }
         if(owner.getAddress().getStreet().length() == 0)
             throw new Exception ("Não deixe o campo rua em branco");
         if(owner.getAddress().getCity().getName().length() == 0)
@@ -57,7 +64,7 @@ public class OwnerBO {
         validate(owner);     
         owner.setAddress(getAddress(owner.getAddress()));
         owner.setContacts(getContact(owner.getContacts()));
-      //  this.oDao.save(owner);
+        this.oDao.save(owner);
     }
     
     

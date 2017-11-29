@@ -115,6 +115,11 @@ public class ControllerManager extends Application{
          this.ownerStage.close();
          this.unfreeze();
       }
+      
+      public void closeSale(){
+          this.saleCarStage.close();
+          this.unfreeze();
+      }
     
     public void freeze(Window window){
        this.win = window;

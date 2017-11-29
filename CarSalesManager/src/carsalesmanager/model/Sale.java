@@ -39,6 +39,14 @@ public class Sale  implements java.io.Serializable {
 
     public Sale() {
     }
+    
+      public Sale(Owner owner, Date saleDate, Integer portionNumber, Double amount, Set<Car> cars) {
+       this.owner = owner;
+       this.saleDate = saleDate;
+       this.portionNumber = portionNumber;
+       this.amount = amount;
+       this.cars = cars;
+    }
 
     public Sale(Owner owner, Date saleDate, Integer portionNumber, Double amount, Boolean settled, Set<Car> cars, Set<Payment> payments) {
        this.owner = owner;

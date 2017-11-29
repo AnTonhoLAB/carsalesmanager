@@ -99,13 +99,13 @@ public class MainController implements Initializable {
     
     @FXML
     private void BTReload(ActionEvent event) throws IOException {
-     
+      this.cDao.closeSession();
         populateTableView();
       
     }
     
         public void populateTableView(){
-        
+       
         this.cDao = new CarDAO(new Car());
         ArrayList<Car> allCars = (ArrayList<Car>) this.cDao.findAllWithoutClose();
         ArrayList<Car> carsp = new ArrayList<>();
