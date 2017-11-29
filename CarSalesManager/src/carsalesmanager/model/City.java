@@ -33,6 +33,11 @@ public class City  implements java.io.Serializable {
     public City() {
     }
 
+      public City(State state, String name) {
+       this.state = state;
+       this.name = name;
+    }
+        
     public City(State state, String name, Set<Address> addresses) {
        this.state = state;
        this.name = name;

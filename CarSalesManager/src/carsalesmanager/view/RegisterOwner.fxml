@@ -28,5 +28,7 @@
       <TextField fx:id="TFDistrict" layoutX="372.0" layoutY="238.0" prefHeight="26.0" prefWidth="210.0" />
       <Label layoutX="340.0" layoutY="291.0" text="Nº " />
       <MaskTextField fx:id="TFNumber" layoutX="372.0" layoutY="286.0" prefHeight="26.0" prefWidth="111.0" />
+      <Label layoutX="65.0" layoutY="175.0" text="CPF" />
+      <MaskTextField fx:id="TFCPF" layoutX="117.0" layoutY="171.0" prefHeight="26.0" prefWidth="203.0" />
    </children>
 </AnchorPane>

@@ -123,8 +123,6 @@ public class RegisterCarController implements Initializable {
             alert.setResizable(true);
             Optional<ButtonType> result = alert.showAndWait();
         }
-        
-         
     }
     
     private CarType getCarType(){

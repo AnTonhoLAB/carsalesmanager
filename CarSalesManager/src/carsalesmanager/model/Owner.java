@@ -34,6 +34,13 @@ public class Owner  implements java.io.Serializable {
 
     public Owner() {
     }
+    
+     public Owner(Address address, String cpf, String name, Set<Contact> contacts) {
+       this.address = address;
+       this.cpf = cpf;
+       this.name = name;
+       this.contacts = contacts;
+    }
 
     public Owner(Address address, String cpf, String name, Set<Sale> sales, Set<Contact> contacts) {
        this.address = address;
