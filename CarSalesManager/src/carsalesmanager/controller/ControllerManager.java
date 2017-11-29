@@ -77,6 +77,7 @@ public class ControllerManager extends Application{
             this.ownerStage.setResizable(false);
             
             this.ownerStage.show();
+            
             // configura ação apos a propria janela ser fechada
             this.ownerStage.setOnCloseRequest((WindowEvent t) -> {
                 t.consume();

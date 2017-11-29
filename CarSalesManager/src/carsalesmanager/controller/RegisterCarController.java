@@ -108,11 +108,7 @@ public class RegisterCarController implements Initializable {
     
     @FXML
     private void BTSave(ActionEvent event) throws IOException {
-        
-        getAccessories();
-        //get status from radio button
-         
-          
+
         try{
             CarBO cbo = new CarBO();
            
@@ -123,69 +119,51 @@ public class RegisterCarController implements Initializable {
         } catch (Exception e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("ERRO");
-            alert.setHeaderText(e.toString());
+            alert.setHeaderText(e.getMessage());
             alert.setResizable(true);
             Optional<ButtonType> result = alert.showAndWait();
         }
     }
     
     private CarType getCarType(){
+       
         RadioButton chk = (RadioButton)TGType.getSelectedToggle();  
         CarType cType = new CarType();  
-        
-        TypeDao tDao = new TypeDao(new CarType());
-        ArrayList<CarType> types = (ArrayList<CarType>) tDao.findAll();
-        
-        for (CarType type : types) {
-            if(type.getName().contains(chk.getText())){
-                cType = type;
-                System.out.println(cType.getName());
-            }
-        }
+        cType.setName(chk.getText());
+
         return cType;
     }   
     
     private Color getColor(){
         Color color = new Color();
-        
         try {
-            String name = CBColor.getSelectionModel().getSelectedItem().toString();
-            
-            for (Color col : colors) {
-                if(col.getName().contains(name)){
-                    color = col;
-                }
-            }
+            color.setName(CBColor.getSelectionModel().getSelectedItem().toString());
         } catch (Exception e) {
-           color.setName("");
+            color.setName("");
         }
-        
-        System.out.println(color.getName());
         return color;
     }
 
-    private Model getModel() throws Exception{
-        
-     Model mod = new Model();
-     Manufacturer manu = new Manufacturer();
-        try {
-             String nameManu = CBManufacturer.getSelectionModel().getSelectedItem().toString();
     
-            for(Manufacturer man : this.manufacturers){
-                if(man.getName().contains(nameManu)){
-                manu = man;
+    
+    private Model getModel() throws Exception{
+     
+        Manufacturer manuToSave = new Manufacturer();
+            try {
+                 manuToSave.setName(CBManufacturer.getSelectionModel().getSelectedItem().toString());
+       
+            } catch (Exception e) {
+        manuToSave.setName("");
             }
+        Model modToSave = new Model();
+            try {
+                modToSave.setName(TFModel.getText()); 
+            } catch (Exception e) {
+                modToSave.setName("");
             }
-        } catch (Exception e) {
-           manu = new Manufacturer();
-           manu.setName("");
-        }
-        mod.setName(TFModel.getText());
-        mod.setManufacturer(manu);
         
-        ModelDAO mdao = new ModelDAO(new Model());
-        mdao.save(mod); 
-        return mod;
+        modToSave.setManufacturer(manuToSave);
+        return modToSave;
     }
     
     private String getPlate(){
@@ -238,9 +216,7 @@ public class RegisterCarController implements Initializable {
     }
     
     private Set<Accessory> getAccessories(){
-        AccessoryDAO aDao = new AccessoryDAO(new Accessory());
-        ArrayList<Accessory> fetchAcc = (ArrayList<Accessory>) aDao.findAll();
-        ArrayList<Accessory>  acc = new ArrayList<>();
+        Set<Accessory>  acc = new HashSet<>();
         ArrayList<String> acString = new ArrayList<>();
         //pega os checkbox que estao selecionados 
         if (CBAlarm.isSelected())
@@ -254,17 +230,12 @@ public class RegisterCarController implements Initializable {
         if (CBFita.isSelected())
             acString.add("Toca Fitas");
         
-    
-        
         for (String string : acString) {
-           for(Accessory acces : fetchAcc){
-               if(acces.getName().contains(string)){
-                   acc.add(acces);
-               }
-           }
-            
+           Accessory accessory = new Accessory();
+           accessory.setName(string);
+           acc.add(accessory);
         }
-        
+    
         Set<Accessory> foo = new HashSet<Accessory>(acc);
         return foo;
     }
