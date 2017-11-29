@@ -5,12 +5,21 @@
  */
 package carsalesmanager.model.bo;
 
+import carsalesmanager.dao.AccessoryDAO;
 import carsalesmanager.dao.CarDAO;
+import carsalesmanager.dao.ColorDAO;
+import carsalesmanager.dao.ManufacturerDAO;
+import carsalesmanager.dao.ModelDAO;
 import carsalesmanager.dao.TypeDao;
+import carsalesmanager.model.Accessory;
 import carsalesmanager.model.Car;
 import carsalesmanager.model.CarType;
+import carsalesmanager.model.Color;
 import carsalesmanager.model.Manufacturer;
+import carsalesmanager.model.Model;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  *
@@ -37,74 +46,115 @@ public class CarBO {
             throw new Exception("Escolha uma cor para o carro");
         if(car.getKm() < 0)
             throw new Exception("Informe a kilometragem do veiculo");
-        
+        CarDAO cDao = new CarDAO(new Car());
+        ArrayList<Car> allCars = (ArrayList<Car>) cDao.findAll();
+        for (Car c : allCars) {
+            if (c.getPlate().contains(car.getPlate())){
+                throw new Exception("A placa ja existe");
+            }
+        }
     }
     
     public void save(Car car) throws Exception{
-        validate(car);
+       validate(car);
+        try {
+             car.setModel(configureModel(car.getModel()));
+             car.setCarType(configureType(car.getCarType()));
+             car.setColor(configureColor(car.getColor()));
+             car.setAccessories(configureAcces(car.getAccessories()));
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+       //car.setCarType(carType);
+       
+        try {
+            
+            this.cDao.save(car);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
         
         
-        System.out.println("foi");
-       this.cDao.save(car);
+       System.out.println("foi");
+       
     }
     
     private void delete(Car car) throws Exception{
         this.cDao.delete(car);
     }
     
-    private void carType(){
-    
-//     TypeDao tDao = new TypeDao(new CarType());
-//        ArrayList<CarType> types = (ArrayList<CarType>) tDao.findAll();
-//        
-//        for (CarType type : types) {
-//            if(type.getName().contains(chk.getText())){
-//                cType = type;
-//                System.out.println(cType.getName());
-//            }
-//        }
-    }
-    private void createCarModel(){
+    private Model configureModel(Model model) throws Exception{
         
-        //        
-//        
-//     Manufacturer manu = new Manufacturer();
-//     Model mod = new Model();
-//        try {
-//            
-//            manu.setName(CBManufacturer.getSelectionModel().getSelectedItem().toString());
-//        } catch (Exception e) {
-//            manu.setName("");
-//        }
-//     
-//        try {
-//            mod.setName(TFModel.getText());
-//        } catch (Exception e) {
-//            mod.setName("");
-//        }
-//     mod.setManufacturer(manu);
-     
+        ManufacturerDAO manuDao = new ManufacturerDAO(new Manufacturer());
+        ModelDAO mDao = new ModelDAO(new Model());
         
+        ArrayList<Manufacturer> allManu = (ArrayList<Manufacturer>) manuDao.findAll();
         
+        for (Manufacturer manufacturer : allManu) {
+            if(manufacturer.getName().contains(model.getManufacturer().getName()))
+            model.setManufacturer(manufacturer);
+        }
         
+        ArrayList<Model> allModel= (ArrayList<Model>) mDao.findAll();
         
+        boolean saveNewModel = false;
         
-//           try {
-//            
-//            for(Manufacturer man : this.manufacturers){
-//                if(man.getName().contains(nameManu)){
-//                manu = man;
-//            }
-//            }
-//        } catch (Exception e) {
-//           manu = new Manufacturer();
-//           manu.setName("");
-//        }
+        for (Model mod : allModel) {
+            if (mod.getName().contains(model.getName())){
+                System.out.println(mod.getName());
+                model = mod;
+                saveNewModel = false;
+                break;
+            }else{
+                saveNewModel = true;
+            }
+        }
+        System.out.println(saveNewModel);
+        if (saveNewModel == true)
+             mDao.save(model);
+               
+        return model;
     }
     
-    private void saveColor(){
+    private CarType configureType(CarType cType){
+    
+        TypeDao tDao = new TypeDao(new CarType());
+        ArrayList<CarType> allTypes = (ArrayList<CarType>) tDao.findAll();
         
+        for (CarType type : allTypes) {
+            if(type.getName().contains(cType.getName())){
+                cType = type;
+            }
+        }
+        return cType;
+    }
+
+    private Color configureColor(Color color){
+        ColorDAO cDao = new ColorDAO(new Color());
+        ArrayList<Color> allColors = (ArrayList<Color>) cDao.findAll();
+        
+        for (Color c : allColors) {
+            if(c.getName().contains(color.getName())){
+                color = c;
+            }
+        }
+        
+        return color;
     }
     
-    
+    private Set<Accessory> configureAcces(Set<Accessory> accessories){
+        AccessoryDAO aDao = new AccessoryDAO(new Accessory());
+        Set<Accessory> allAcessory = new HashSet<>(aDao.findAll());
+        Set<Accessory> toReturn = new HashSet<>();
+        
+        for (Accessory a : allAcessory) {
+            for (Accessory ac : accessories) {
+                if (a.getName() == ac.getName()){
+                    toReturn.add(a);
+                }
+            }
+        }
+        
+        return toReturn;
+    }   
 }
