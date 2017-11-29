@@ -91,7 +91,9 @@ public class MainController implements Initializable {
     @FXML
     private void BTSale(ActionEvent event) throws IOException {
      
-        this.cDao.closeSession();         
+        this.cDao.closeSession();        
+        ControllerManager.getInstance().freeze(((Node)(event.getSource())).getScene().getWindow());
+        ControllerManager.getInstance().saleCar();
       
     }
     
@@ -105,8 +107,23 @@ public class MainController implements Initializable {
         public void populateTableView(){
         
         this.cDao = new CarDAO(new Car());
-       
-        this.cars = FXCollections.observableArrayList(cDao.findAllWithoutClose());
+        ArrayList<Car> allCars = (ArrayList<Car>) this.cDao.findAllWithoutClose();
+        ArrayList<Car> carsp = new ArrayList<>();
+         
+        for (Car car : allCars) {
+            try {
+                 if (car.getSale().getOwner() == null){
+                     //dont add car sale
+                 }
+            } catch (Exception e) {
+               carsp.add(car);
+            }
+               
+            }
+        
+        this.cars = FXCollections.observableArrayList(carsp);
+           
+        
       
         this.manufacturer.setCellValueFactory(new Callback<CellDataFeatures<Car, String>, ObservableValue<String>>() {
             @Override

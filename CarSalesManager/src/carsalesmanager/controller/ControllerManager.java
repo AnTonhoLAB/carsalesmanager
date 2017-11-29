@@ -28,6 +28,7 @@ public class ControllerManager extends Application{
     
     private Stage ownerStage;
     private Stage carStage;
+    private Stage saleCarStage;
     
     private static ControllerManager instance;
     
@@ -85,6 +86,24 @@ public class ControllerManager extends Application{
                 this.ownerStage.close();
             });
     }  
+    public void saleCar() throws IOException{
+          Parent root = FXMLLoader.load(getClass().getResource("/carsalesmanager/view/SaleCarView.fxml"));
+            this.saleCarStage = new Stage();
+            
+            this.saleCarStage.initModality(Modality.APPLICATION_MODAL);
+            Scene scene = new Scene(root);
+            this.saleCarStage.setScene(scene);
+            this.saleCarStage.setResizable(false);
+            
+            this.saleCarStage.show();
+            
+            // configura ação apos a propria janela ser fechada
+            this.saleCarStage.setOnCloseRequest((WindowEvent t) -> {
+                t.consume();
+                ControllerManager.getInstance().unfreeze();
+                this.saleCarStage.close();
+            });
+    }
     
     public void closeRegisterCar(){
         this.carStage.close();
